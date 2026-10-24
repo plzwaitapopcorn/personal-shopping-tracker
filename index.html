@@ -3055,9 +3055,16 @@
     opts = opts || {};
     opts.headers = Object.assign({ Authorization: "Bearer " + sync.token }, opts.headers || {});
     return fetch(url, opts).then(function (r) {
-      if (r.status === 401 || r.status === 403) { sync.token = ""; throw authError("http" + r.status); }
-      if (!r.ok) { var e = new Error("HTTP " + r.status); e.status = r.status; throw e; }
-      return r;
+      if (r.ok) return r;
+      // Read Google's reason so the user (and we) can tell "API not enabled" from "sign in again".
+      return r.text().then(function (txt) {
+        var reason = "";
+        try { var j = JSON.parse(txt), e0 = j.error || {}; reason = (e0.errors && e0.errors[0] && e0.errors[0].reason) || e0.status || ""; } catch (x) { /* not JSON */ }
+        var err = new Error("HTTP " + r.status + (reason ? " " + reason : ""));
+        err.status = r.status; err.reason = reason;
+        if (r.status === 401) { sync.token = ""; err.auth = true; }
+        throw err;
+      });
     });
   }
   function findRemoteFile() {
@@ -3167,10 +3174,11 @@
     }).catch(function (err) {
       console.error("sync", err);
       if (interactive && !sync.last) { sync.enabled = false; saveSyncPref(); }   // first connect never finished: stay off
-      if (!sync.enabled) { setSyncState("off"); if (announce) showToast(err && err.gis ? t("toastSyncNoGis") : (err && err.auth ? t("toastSyncNeed") : t("toastSyncFail"))); }
+      var why = (err && err.auth && err.message && err.message !== "auth") ? " (" + err.message + ")" : "";   // Google's reason code, e.g. access_denied / popup_closed
+      if (!sync.enabled) { setSyncState("off"); if (announce) showToast(err && err.gis ? t("toastSyncNoGis") : (err && err.auth ? t("toastSyncNeed") + why : t("toastSyncFail") + " (" + ((err && err.message) || "error") + ")")); }
       else if (err && err.gis) { setSyncState("error"); if (announce) showToast(t("toastSyncNoGis")); }
-      else if (err && err.auth) { setSyncState("needsauth"); if (announce) showToast(t("toastSyncNeed")); }
-      else { setSyncState("error"); if (announce) showToast(t("toastSyncFail")); }
+      else if (err && err.auth) { setSyncState("needsauth"); if (announce) showToast(t("toastSyncNeed") + why); }
+      else { setSyncState("error"); if (announce) showToast(t("toastSyncFail") + " (" + ((err && err.message) || "error") + ")"); }
     }).then(function () {
       sync.busy = false;
       document.getElementById("btnSettings").classList.remove("sync-busy");
