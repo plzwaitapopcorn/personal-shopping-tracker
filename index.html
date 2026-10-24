@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shopping Tracker</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%2333d6c0%22%2F%3E%3Cg%20transform%3D%22translate%284.4%204.6%29%20scale%28.63%29%22%20fill%3D%22none%22%20stroke%3D%22%23121212%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%229%22%20cy%3D%2221%22%20r%3D%221.2%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2221%22%20r%3D%221.2%22%2F%3E%3Cpath%20d%3D%22M1%201h4l2.7%2013.4a2%202%200%200%200%202%201.6h9.7a2%202%200%200%200%202-1.6L23%206H6%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,500;0,600;0,700;1,800;1,900&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -657,6 +659,21 @@
   .btn-danger-text{ background:none; border:none; color: var(--danger); font-size: 13.5px; cursor:pointer; }
   .btn-danger-text:hover{ text-decoration: underline; }
 
+  .hbody .hsub{ margin-top:6px; padding-left:14px; position:relative; }
+  .hbody .hsub::before{ content:"•"; position:absolute; left:2px; color: var(--accent-ink); }
+  /* Google Drive sync (menu + gear dot) */
+  .menu-note{ font-size:11.5px; color: var(--text-muted); margin: 0 10px 6px 12px; line-height:1.4; }
+  .menu-note.ok{ color: var(--accent-ink); }
+  .menu-note.warn{ color: var(--due-ink); }
+  .menu-item[hidden]{ display:none; }
+  .btn-icon-info{ position:relative; }
+  .btn-icon-info.sync-attn::after{
+    content:""; position:absolute; top:2px; right:2px; width:10px; height:10px; border-radius:50%;
+    background: var(--due-ink); border:2px solid var(--surface);
+  }
+  .btn-icon-info.sync-busy svg{ animation: syncspin 1.1s linear infinite; }
+  @keyframes syncspin{ to{ transform: rotate(360deg); } }
+
   /* Bulk select / delete */
   .sel-box{
     display:none; position:absolute; z-index:5; left:8px; top:8px; width:22px; height:22px; border-radius:7px;
@@ -765,7 +782,7 @@
     <div class="header-content">
       <div class="header-text">
         <h1 id="headerTitle">Shopping <span class="hl">Tracker</span></h1>
-        <p id="headerSubtitle">บันทึกทุกออเดอร์ที่ซื้อไว้ ไม่มีตกหล่น — ข้อมูลเก็บอยู่ในเครื่องนี้เท่านั้น</p>
+        <p id="headerSubtitle">บันทึกทุกออเดอร์ที่ซื้อไว้ ไม่มีตกหล่น — ข้อมูลเป็นของคุณ เก็บในเครื่อง และซิงค์ผ่าน Google Drive ได้ถ้าต้องการ</p>
       </div>
       <div class="header-actions">
         <div class="lang-toggle" role="group" aria-label="Language / ภาษา">
@@ -807,6 +824,19 @@
               <span data-i18n="importBtn">นำเข้าข้อมูล</span>
             </button>
             <input type="file" id="importFile" accept="application/json" style="display:none">
+            <div id="syncSection">
+            <div class="menu-sep"></div>
+            <div class="menu-label" style="margin:6px 10px 4px" data-i18n="syncLabel">ซิงค์ข้อมูล (Google Drive)</div>
+            <div class="menu-note" id="syncNote"></div>
+            <button class="menu-item" id="btnSyncConnect" role="menuitem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-13.7 5.6M4 12a8 8 0 0 1 13.7-5.6"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>
+              <span id="syncConnectText"></span>
+            </button>
+            <button class="menu-item" id="btnSyncOff" role="menuitem" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              <span data-i18n="syncDisconnect">ตัดการเชื่อมต่อ</span>
+            </button>
+            </div>
             <div class="menu-sep"></div>
             <button class="menu-item" id="btnHelp" role="menuitem">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 8v.01" stroke-linecap="round"/></svg>
@@ -1062,13 +1092,13 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
-<div class="help-tabs" role="tablist"><button type="button" class="help-tab active" data-help-tab="start" role="tab"><span data-i18n="hTabStart">เริ่มต้น</span></button><button type="button" class="help-tab" data-help-tab="orders" role="tab"><span data-i18n="hTabOrders">ออเดอร์</span></button><button type="button" class="help-tab" data-help-tab="find" role="tab"><span data-i18n="hTabFind">ค้นหา & ภาพรวม</span></button><button type="button" class="help-tab" data-help-tab="track" role="tab"><span data-i18n="hTabTrack">พัสดุ</span></button><button type="button" class="help-tab" data-help-tab="settings" role="tab"><span data-i18n="hTabSettings">ตั้งค่า & สำรองข้อมูล</span></button></div>
+<div class="help-tabs" role="tablist"><button type="button" class="help-tab active" data-help-tab="start" role="tab"><span data-i18n="hTabStart">เริ่มต้น</span></button><button type="button" class="help-tab" data-help-tab="orders" role="tab"><span data-i18n="hTabOrders">ออเดอร์</span></button><button type="button" class="help-tab" data-help-tab="find" role="tab"><span data-i18n="hTabFind">ค้นหา & ภาพรวม</span></button><button type="button" class="help-tab" data-help-tab="track" role="tab"><span data-i18n="hTabTrack">พัสดุ</span></button><button type="button" class="help-tab" data-help-tab="settings" role="tab"><span data-i18n="hTabSettings">ตั้งค่า & ซิงค์</span></button></div>
 <div class="help-panel active" data-help-panel="start">
 <p class="hintro" data-i18n="hStartIntro">เว็บนี้ใช้จดของที่สั่งซื้อไว้ ตั้งแต่จ่ายมัดจำจนของถึงมือ เริ่มใช้ได้ใน 3 ขั้นตอน</p>
 <div class="hstep"><div class="hnum">1</div><div class="hbody"><h4 data-i18n="hS1T">กด “+ เพิ่มออเดอร์”</h4><p data-i18n="hS1D">ปุ่มอยู่มุมขวาบนของหน้า (บนมือถือเป็นปุ่มลอยมุมขวาล่าง)</p><div class="hviz"><span class="mk-btn">+ <span data-i18n="hS1B">เพิ่มออเดอร์</span></span></div></div></div>
 <div class="hstep"><div class="hnum">2</div><div class="hbody"><h4 data-i18n="hS2T">กรอกข้อมูลสั้นๆ</h4><p data-i18n="hS2D">ใส่ชื่อสินค้า ร้านค้า และราคา ถ้าจ่ายมัดจำให้ใส่ยอดมัดจำด้วย ระบบจะคำนวณยอดค้างชำระให้เอง ส่วนรูปจะใส่หรือไม่ก็ได้</p><div class="hviz"><div class="mk-calc"><div><span data-i18n="hS2a">ราคาเต็ม</span> <b>฿1,290</b></div><div><span data-i18n="hS2b">มัดจำแล้ว</span> <b>฿400</b></div><div class="due"><span data-i18n="hS2c">ค้างชำระ</span> <b>฿890</b></div></div></div></div></div>
 <div class="hstep"><div class="hnum">3</div><div class="hbody"><h4 data-i18n="hS3T">อัปเดตสถานะเมื่อของคืบหน้า</h4><p data-i18n="hS3D">กดป้ายสถานะที่ท้ายแถว (หรือมุมการ์ด) เพื่อเปลี่ยนได้ทันที ไม่ต้องเปิดฟอร์ม ถ้าไม่เอาแล้วเลือก “ยกเลิก”</p><div class="hviz"><div class="mk-flow"><span class="mk-pill" style="border-color:var(--status-wishlist)"><i style="background:var(--status-wishlist)"></i><span data-i18n="statusWishlist">อยากได้</span></span><span class="mk-arrow">›</span><span class="mk-pill" style="border-color:var(--status-deposit)"><i style="background:var(--status-deposit)"></i><span data-i18n="statusDeposit">มัดจำแล้ว</span></span><span class="mk-arrow">›</span><span class="mk-pill" style="border-color:var(--status-full)"><i style="background:var(--status-full)"></i><span data-i18n="statusFull">จ่ายเต็มแล้ว</span></span><span class="mk-arrow">›</span><span class="mk-pill" style="border-color:var(--status-shipping)"><i style="background:var(--status-shipping)"></i><span data-i18n="statusShipping">รอจัดส่ง</span></span><span class="mk-arrow">›</span><span class="mk-pill" style="border-color:var(--status-intransit)"><i style="background:var(--status-intransit)"></i><span data-i18n="statusInTransit">กำลังจัดส่ง</span></span><span class="mk-arrow">›</span><span class="mk-pill" style="border-color:var(--status-received)"><i style="background:var(--status-received)"></i><span data-i18n="statusReceived">ได้รับแล้ว</span></span></div></div></div></div>
-<div class="hcallout"><div class="ico">⚠️</div><div><b data-i18n="hWarnT">ข้อมูลเก็บอยู่ในเบราว์เซอร์เครื่องนี้เท่านั้น</b><br><span data-i18n="hWarnD">ไม่ได้ขึ้นคลาวด์ ถ้าเปลี่ยนเครื่อง เปลี่ยนเบราว์เซอร์ หรือล้างข้อมูลเบราว์เซอร์ ข้อมูลจะไม่ติดไปด้วย กด “ส่งออกข้อมูล” เก็บไว้เป็นระยะ (ดูแท็บ “ตั้งค่า & สำรองข้อมูล”)</span></div></div>
+<div class="hcallout"><div class="ico">⚠️</div><div><b data-i18n="hWarnT">ข้อมูลเก็บอยู่ในเบราว์เซอร์ของเครื่องนี้</b><br><span data-i18n="hWarnD">ถ้าเปลี่ยนเครื่อง เปลี่ยนเบราว์เซอร์ หรือล้างข้อมูลเบราว์เซอร์ ข้อมูลจะไม่ติดไปด้วย กด “ส่งออกข้อมูล” เก็บไว้เป็นระยะ หรือเปิดซิงค์ Google Drive เพื่อให้ข้อมูลตามไปทุกเครื่อง (ดูแท็บ “ตั้งค่า & ซิงค์”)</span></div></div>
 </div>
 <div class="help-panel" data-help-panel="orders">
 <div class="hstep"><div class="hnum">1</div><div class="hbody"><h4 data-i18n="hO1T">“อยากได้” สำหรับของที่ยังไม่ได้สั่ง</h4><p data-i18n="hO1D">ไม่ต้องใส่ชื่อสินค้าหรือราคาก็บันทึกได้ (ใส่แค่รูปกับลิงก์ไว้ก่อนก็ได้) พอตัดสินใจซื้อค่อยเปลี่ยนสถานะ รายการอยากได้จะไม่ถูกนับในแผงสรุป</p><div class="hviz"><div class="mk-flow"><span class="mk-pill" style="border-color:var(--status-wishlist)"><i style="background:var(--status-wishlist)"></i><span data-i18n="statusWishlist">อยากได้</span></span></div></div></div></div>
@@ -1091,7 +1121,9 @@
 <div class="hstep"><div class="hnum">2</div><div class="hbody"><h4 data-i18n="hG3T">โหมดและสีหลัก</h4><p data-i18n="hG3D">สลับโหมดสว่าง/มืด และเลือกสีหลักของปุ่มและลิงก์ ส่วนสีของสถานะคงที่เสมอเพื่อให้แยกง่าย</p></div></div>
 <div class="hstep"><div class="hnum">3</div><div class="hbody"><h4 data-i18n="hG4T">ตกแต่ง header</h4><p data-i18n="hG4D">เปลี่ยนชื่อ คำโปรย และใส่รูปพื้นหลังของคุณเอง</p></div></div>
 <div class="hstep"><div class="hnum">4</div><div class="hbody"><h4 data-i18n="hG5T">ส่งออก / นำเข้าข้อมูล</h4><p data-i18n="hG5D">กด “ส่งออกข้อมูล” เป็นระยะเพื่อเก็บเป็นไฟล์สำรอง ใช้ “นำเข้าข้อมูล” เพื่อดึงกลับหรือย้ายไปเครื่องอื่น การนำเข้าจะเพิ่มต่อจากข้อมูลที่มี ไม่ทับของเดิม</p></div></div>
-<div class="hstep"><div class="hnum">5</div><div class="hbody"><h4 data-i18n="hG6T">ภาษา</h4><p data-i18n="hG6D">สลับไทย/อังกฤษได้ที่ปุ่ม TH / EN มุมขวาบน</p></div></div>
+<div class="hstep"><div class="hnum">5</div><div class="hbody"><h4 data-i18n="hSy1T">ซิงค์ข้อมูลกับ Google Drive (ไม่บังคับ)</h4><p data-i18n="hSy1D">ใช้เมื่ออยากเห็นข้อมูลชุดเดียวกันทั้งมือถือและคอม กด “เชื่อมต่อ Google Drive” ในเมนูเฟือง แล้วล็อกอินด้วยบัญชี Google ของคุณ ข้อมูลจะถูกเก็บเป็นไฟล์ในโฟลเดอร์ลับของแอปใน Drive ของคุณเอง แอปเข้าถึงไฟล์อื่นของคุณไม่ได้ ถ้าไม่เชื่อมต่อ ข้อมูลอยู่ในเครื่องเท่านั้นเหมือนเดิม</p><div class="hviz"><span class="mk-btn"><span data-i18n="syncConnect">เชื่อมต่อ Google Drive</span></span></div></div></div>
+<div class="hstep"><div class="hnum">6</div><div class="hbody"><h4 data-i18n="hSy2T">ใช้ซิงค์ให้ถูกวิธี</h4><p class="hsub" data-i18n="hSy2b">บนเครื่องอื่น เปิดลิงก์เดียวกันแล้วเชื่อมต่อด้วยบัญชี Google เดียวกัน ข้อมูลจะรวมกันให้เอง</p><p class="hsub" data-i18n="hSy2c">หลังแก้ไขหรือลบ ระบบซิงค์ให้ภายในไม่กี่วินาที หรือกด “ซิงค์เดี๋ยวนี้”</p><p class="hsub" data-i18n="hSy2d">ถ้าสองเครื่องแก้รายการเดียวกัน ฉบับที่แก้ทีหลังจะชนะ</p><p class="hsub" data-i18n="hSy2e">ถ้ามีจุดสีส้มที่ปุ่มเฟือง แปลว่าต้องล็อกอิน Google ใหม่ กด “ล็อกอินเพื่อซิงค์ต่อ” ครั้งเดียวก็ใช้ต่อได้</p><p class="hsub" data-i18n="hSy2f">ถ้ามีรูปเยอะ การซิงค์ครั้งแรกอาจช้า</p></div></div>
+<div class="hstep"><div class="hnum">7</div><div class="hbody"><h4 data-i18n="hG6T">ภาษา</h4><p data-i18n="hG6D">สลับไทย/อังกฤษได้ที่ปุ่ม TH / EN มุมขวาบน</p></div></div>
 </div>
 
   </div>
@@ -1212,7 +1244,7 @@
     th: {
       locale: "th-TH",
       appTitle: "Shopping Tracker",
-      appSubtitle: "บันทึกทุกออเดอร์ที่ซื้อไว้ ไม่มีตกหล่น — ข้อมูลเก็บอยู่ในเครื่องนี้เท่านั้น",
+      appSubtitle: "บันทึกทุกออเดอร์ที่ซื้อไว้ ไม่มีตกหล่น — ข้อมูลเป็นของคุณ เก็บในเครื่อง และซิงค์ผ่าน Google Drive ได้ถ้าต้องการ",
       exportBtn: "ส่งออกข้อมูล",
       exportBtnTooltip: "บันทึกข้อมูลทั้งหมดเป็นไฟล์สำรอง",
       importBtn: "นำเข้าข้อมูล",
@@ -1243,8 +1275,8 @@
       hS2D: "ใส่ชื่อสินค้า ร้านค้า และราคา ถ้าจ่ายมัดจำให้ใส่ยอดมัดจำด้วย ระบบจะคำนวณยอดค้างชำระให้เอง ส่วนรูปจะใส่หรือไม่ก็ได้",
       hS3T: "อัปเดตสถานะเมื่อของคืบหน้า",
       hS3D: "กดป้ายสถานะที่ท้ายแถว (หรือมุมการ์ด) เพื่อเปลี่ยนได้ทันที ไม่ต้องเปิดฟอร์ม ถ้าไม่เอาแล้วเลือก “ยกเลิก”",
-      hWarnT: "ข้อมูลเก็บอยู่ในเบราว์เซอร์เครื่องนี้เท่านั้น",
-      hWarnD: "ไม่ได้ขึ้นคลาวด์ ถ้าเปลี่ยนเครื่อง เปลี่ยนเบราว์เซอร์ หรือล้างข้อมูลเบราว์เซอร์ ข้อมูลจะไม่ติดไปด้วย กด “ส่งออกข้อมูล” เก็บไว้เป็นระยะ (ดูแท็บ “ตั้งค่า & สำรองข้อมูล”)",
+      hWarnT: "ข้อมูลเก็บอยู่ในเบราว์เซอร์ของเครื่องนี้",
+      hWarnD: "ถ้าเปลี่ยนเครื่อง เปลี่ยนเบราว์เซอร์ หรือล้างข้อมูลเบราว์เซอร์ ข้อมูลจะไม่ติดไปด้วย กด “ส่งออกข้อมูล” เก็บไว้เป็นระยะ หรือเปิดซิงค์ Google Drive เพื่อให้ข้อมูลตามไปทุกเครื่อง (ดูแท็บ “ตั้งค่า & ซิงค์”)",
       hO1T: "“อยากได้” สำหรับของที่ยังไม่ได้สั่ง",
       hO1D: "ไม่ต้องใส่ชื่อสินค้าหรือราคาก็บันทึกได้ (ใส่แค่รูปกับลิงก์ไว้ก่อนก็ได้) พอตัดสินใจซื้อค่อยเปลี่ยนสถานะ รายการอยากได้จะไม่ถูกนับในแผงสรุป",
       hO2a: "คลิกเลือกไฟล์",
@@ -1286,11 +1318,19 @@
       hG5D: "กด “ส่งออกข้อมูล” เป็นระยะเพื่อเก็บเป็นไฟล์สำรอง ใช้ “นำเข้าข้อมูล” เพื่อดึงกลับหรือย้ายไปเครื่องอื่น การนำเข้าจะเพิ่มต่อจากข้อมูลที่มี ไม่ทับของเดิม",
       hG6T: "ภาษา",
       hG6D: "สลับไทย/อังกฤษได้ที่ปุ่ม TH / EN มุมขวาบน",
+      hSy1T: "ซิงค์ข้อมูลกับ Google Drive (ไม่บังคับ)",
+      hSy1D: "ใช้เมื่ออยากเห็นข้อมูลชุดเดียวกันทั้งมือถือและคอม กด “เชื่อมต่อ Google Drive” ในเมนูเฟือง แล้วล็อกอินด้วยบัญชี Google ของคุณ ข้อมูลจะถูกเก็บเป็นไฟล์ในโฟลเดอร์ลับของแอปใน Drive ของคุณเอง แอปเข้าถึงไฟล์อื่นของคุณไม่ได้ ถ้าไม่เชื่อมต่อ ข้อมูลอยู่ในเครื่องเท่านั้นเหมือนเดิม",
+      hSy2T: "ใช้ซิงค์ให้ถูกวิธี",
+      hSy2b: "บนเครื่องอื่น เปิดลิงก์เดียวกันแล้วเชื่อมต่อด้วยบัญชี Google เดียวกัน ข้อมูลจะรวมกันให้เอง",
+      hSy2c: "หลังแก้ไขหรือลบ ระบบซิงค์ให้ภายในไม่กี่วินาที หรือกด “ซิงค์เดี๋ยวนี้”",
+      hSy2d: "ถ้าสองเครื่องแก้รายการเดียวกัน ฉบับที่แก้ทีหลังจะชนะ",
+      hSy2e: "ถ้ามีจุดสีส้มที่ปุ่มเฟือง แปลว่าต้องล็อกอิน Google ใหม่ กด “ล็อกอินเพื่อซิงค์ต่อ” ครั้งเดียวก็ใช้ต่อได้",
+      hSy2f: "ถ้ามีรูปเยอะ การซิงค์ครั้งแรกอาจช้า",
       hTabStart: "เริ่มต้น",
       hTabOrders: "ออเดอร์",
       hTabFind: "ค้นหา & ภาพรวม",
       hTabTrack: "พัสดุ",
-      hTabSettings: "ตั้งค่า & สำรองข้อมูล",
+      hTabSettings: "ตั้งค่า & ซิงค์",
       chipAll: "ทั้งหมด",
       statusDeposit: "มัดจำแล้ว",
       statusFull: "จ่ายเต็มแล้ว",
@@ -1413,6 +1453,23 @@
       groupDone: "รับแล้ว",
       groupCancelled: "ยกเลิก",
       groupToggleTitle: "จัดกลุ่มตามสถานะ",
+      syncLabel: "ซิงค์ข้อมูล (Google Drive)",
+      syncOffNote: "ยังไม่เชื่อมต่อ — ข้อมูลอยู่ในเครื่องนี้เท่านั้น",
+      syncFileNote: "ซิงค์ใช้ได้เมื่อเปิดผ่านลิงก์เว็บ",
+      syncConnect: "เชื่อมต่อ Google Drive",
+      syncNow: "ซิงค์เดี๋ยวนี้",
+      syncSignIn: "ล็อกอินเพื่อซิงค์ต่อ",
+      syncDisconnect: "ตัดการเชื่อมต่อ",
+      syncDoing: "กำลังซิงค์…",
+      syncOkNote: "เชื่อมต่อแล้ว · ซิงค์ล่าสุด {time}",
+      syncNeedNote: "ต้องล็อกอิน Google อีกครั้งเพื่อซิงค์ต่อ",
+      syncErrNote: "ซิงค์ไม่สำเร็จ จะลองใหม่อีกครั้ง",
+      toastSyncOk: "ซิงค์แล้ว ({n} รายการ)",
+      toastSyncFail: "ซิงค์ไม่สำเร็จ ลองใหม่อีกครั้ง",
+      toastSyncNeed: "ต้องล็อกอิน Google เพื่อซิงค์",
+      toastSyncOff: "ตัดการเชื่อมต่อแล้ว ข้อมูลในเครื่องยังอยู่ครบ",
+      toastSyncNoGis: "โหลดระบบล็อกอินของ Google ไม่ได้ ตรวจสอบอินเทอร์เน็ต",
+      confirmSyncOff: "ตัดการเชื่อมต่อ Google Drive? ข้อมูลในเครื่องและไฟล์ใน Drive ยังอยู่ แค่ไม่ซิงค์ต่อ",
       selectModeTitle: "เลือกหลายรายการ",
       bulkSelected: "เลือกแล้ว {n}",
       bulkAll: "เลือกทั้งหมด",
@@ -1430,7 +1487,7 @@
     en: {
       locale: "en-US",
       appTitle: "Shopping Tracker",
-      appSubtitle: "Track every order you've placed, nothing slips through — data stays on this device only.",
+      appSubtitle: "Track every order you've placed, nothing slips through — your data stays yours: on your device, with optional Google Drive sync.",
       exportBtn: "Export data",
       exportBtnTooltip: "Save all your data as a backup file",
       importBtn: "Import data",
@@ -1461,8 +1518,8 @@
       hS2D: "Enter the product name, shop and price. If you paid a deposit, add it too and the balance due is worked out for you. A photo is optional.",
       hS3T: "Update the status as things move",
       hS3D: "Tap the status badge at the end of a row (or the corner of a card) to change it instantly. If you drop an order, choose “Cancelled”.",
-      hWarnT: "Your data lives only in this browser",
-      hWarnD: "It isn't stored in the cloud. Switching devices or browsers, or clearing browser data, loses it. Use “Export data” now and then (see the “Settings & backup” tab).",
+      hWarnT: "Your data lives in this device's browser",
+      hWarnD: "Switching devices or browsers, or clearing browser data, loses it. Use “Export data” now and then, or turn on Google Drive sync so your data follows you to every device (see the “Settings & sync” tab).",
       hO1T: "“Wishlist” for things you haven't ordered",
       hO1D: "No name or price is required (a photo and link are enough). Change the status once you buy it. Wishlist items aren't counted in the summary.",
       hO2a: "Click to choose",
@@ -1504,11 +1561,19 @@
       hG5D: "Click “Export data” now and then to save a backup file; use “Import data” to restore it or move to another device. Importing adds to what you have and never overwrites it.",
       hG6T: "Language",
       hG6D: "Switch Thai/English with the TH / EN toggle at the top right.",
+      hSy1T: "Sync with Google Drive (optional)",
+      hSy1D: "Use this to see the same data on your phone and computer. Tap “Connect Google Drive” in the gear menu and sign in with your Google account. Your data is saved as a file in the app's hidden folder in your own Drive; the app can't see any of your other files. If you don't connect, your data stays on this device only, as before.",
+      hSy2T: "Using sync the right way",
+      hSy2b: "On another device, open the same link and connect with the same Google account; the data merges automatically.",
+      hSy2c: "After you edit or delete, it syncs within a few seconds, or tap “Sync now”.",
+      hSy2d: "If two devices edit the same order, the later edit wins.",
+      hSy2e: "An orange dot on the gear means you need to sign in to Google again; tap “Sign in to resume sync” once and carry on.",
+      hSy2f: "With lots of photos the first sync can take a while.",
       hTabStart: "Get started",
       hTabOrders: "Orders",
       hTabFind: "Find & overview",
       hTabTrack: "Tracking",
-      hTabSettings: "Settings & backup",
+      hTabSettings: "Settings & sync",
       chipAll: "All",
       statusDeposit: "Deposit paid",
       statusFull: "Paid in full",
@@ -1631,6 +1696,23 @@
       groupDone: "Received",
       groupCancelled: "Cancelled",
       groupToggleTitle: "Group by status",
+      syncLabel: "Sync (Google Drive)",
+      syncOffNote: "Not connected — your data stays on this device only",
+      syncFileNote: "Sync works when opened from the web link",
+      syncConnect: "Connect Google Drive",
+      syncNow: "Sync now",
+      syncSignIn: "Sign in to resume sync",
+      syncDisconnect: "Disconnect",
+      syncDoing: "Syncing…",
+      syncOkNote: "Connected · last synced {time}",
+      syncNeedNote: "Sign in to Google again to keep syncing",
+      syncErrNote: "Sync failed — will retry",
+      toastSyncOk: "Synced ({n} orders)",
+      toastSyncFail: "Sync failed, please try again",
+      toastSyncNeed: "Sign in to Google to sync",
+      toastSyncOff: "Disconnected. Your data on this device is untouched",
+      toastSyncNoGis: "Couldn't load Google sign-in. Check your connection",
+      confirmSyncOff: "Disconnect Google Drive? Your data here and the file in Drive stay as they are; they just stop syncing.",
       selectModeTitle: "Select multiple",
       bulkSelected: "{n} selected",
       bulkAll: "Select all",
@@ -1718,6 +1800,7 @@
     if (typeof refreshToolbarHints === "function") refreshToolbarHints();
     if (typeof refreshViewHints === "function") refreshViewHints();
     if (typeof refreshBulkBar === "function") refreshBulkBar();
+    if (typeof renderSyncUI === "function") renderSyncUI();
   }
 
   function setLang(lang) {
@@ -2000,6 +2083,7 @@
   // Keeps the old synchronous contract (returns true = accepted); the actual write is queued.
   function saveData() {
     if (!state.loaded) return false;
+    if (stampOrders()) scheduleSync(4000);
     if (useLocalStorage) return saveToLocalStorage();
 
     var sigs = {};
@@ -2856,6 +2940,267 @@
     reader.readAsText(file);
   }
 
+  // ---------- Google Drive sync (optional, off until the user connects) ----------
+  // Data stays local unless the user turns this on. The file lives in the hidden per-app folder of the user's
+  // own Drive (scope drive.appdata), so this app cannot see any other file in their Drive.
+  var GOOGLE_CLIENT_ID = "413172481620-aef82eehsqf3u8nvn6e0t0bd4c18ft9h.apps.googleusercontent.com";
+  var SYNC_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
+  var SYNC_FILE_NAME = "shopping-tracker-data.json";
+  var SYNC_KEY = "preorderVault_sync";
+  var TOMB_KEY = "preorderVault_tomb";
+  var TOMB_KEEP_MS = 180 * 24 * 3600 * 1000;
+
+  var tsMap = {};      // id -> updatedAt as last stamped
+  var stripSig = {};   // id -> JSON of the order without updatedAt (to detect real edits)
+  var tombs = {};      // id -> deletion time
+  var sync = { enabled: false, fileId: "", last: 0, token: "", exp: 0, busy: false, again: false, state: "off", timer: null, client: null, promise: null };
+
+  function stripOf(o) { var c = {}; Object.keys(o).forEach(function (k) { if (k !== "updatedAt") c[k] = o[k]; }); return JSON.stringify(c); }
+  function loadTombs() {
+    try { tombs = JSON.parse(localStorage.getItem(TOMB_KEY) || "{}") || {}; } catch (e) { tombs = {}; }
+  }
+  function saveTombs() { try { localStorage.setItem(TOMB_KEY, JSON.stringify(tombs)); } catch (e) { /* ignore */ } }
+  function syncInitMaps() {
+    tsMap = {}; stripSig = {};
+    state.orders.forEach(function (o) { tsMap[o.id] = o.updatedAt || 0; stripSig[o.id] = stripOf(o); });
+  }
+  // Stamps updatedAt on changed orders and records deletions. Returns true if anything changed.
+  function stampOrders() {
+    var now = Date.now(), changed = false, present = {};
+    state.orders.forEach(function (o) {
+      present[o.id] = true;
+      var sig = stripOf(o);
+      if (o.id in stripSig && stripSig[o.id] === sig) {
+        if (tsMap[o.id]) o.updatedAt = tsMap[o.id]; else delete o.updatedAt;
+      } else {
+        o.updatedAt = now; tsMap[o.id] = now; stripSig[o.id] = sig; changed = true;
+        if (tombs[o.id]) { delete tombs[o.id]; saveTombs(); }
+      }
+    });
+    var gone = Object.keys(stripSig).filter(function (id) { return !present[id]; });
+    if (gone.length) {
+      gone.forEach(function (id) { tombs[id] = now; delete stripSig[id]; delete tsMap[id]; });
+      saveTombs(); changed = true;
+    }
+    return changed;
+  }
+
+  function loadSyncPref() {
+    try {
+      var p = JSON.parse(localStorage.getItem(SYNC_KEY) || "{}") || {};
+      sync.enabled = !!p.enabled; sync.fileId = p.fileId || ""; sync.last = p.last || 0;
+    } catch (e) { /* ignore */ }
+    sync.state = sync.enabled ? "idle" : "off";
+  }
+  function saveSyncPref() {
+    try { localStorage.setItem(SYNC_KEY, JSON.stringify({ enabled: sync.enabled, fileId: sync.fileId, last: sync.last })); } catch (e) { /* ignore */ }
+  }
+  function syncSupported() { return /^https:$/.test(location.protocol) || location.hostname === "localhost" || location.hostname === "127.0.0.1"; }
+
+  function setSyncState(st) { sync.state = st; renderSyncUI(); }
+  function renderSyncUI() {
+    var note = document.getElementById("syncNote");
+    if (!note) return;
+    var txt = document.getElementById("syncConnectText");
+    var off = document.getElementById("btnSyncOff");
+    var gear = document.getElementById("btnSettings");
+    var cls = "menu-note", text, label;
+    if (!sync.enabled) { text = t("syncOffNote"); label = t("syncConnect"); }
+    else if (sync.state === "syncing") { text = t("syncDoing"); label = t("syncNow"); cls += " ok"; }
+    else if (sync.state === "needsauth") { text = t("syncNeedNote"); label = t("syncSignIn"); cls += " warn"; }
+    else if (sync.state === "error") { text = t("syncErrNote"); label = t("syncNow"); cls += " warn"; }
+    else {
+      var d = sync.last ? new Date(sync.last) : null;
+      text = t("syncOkNote", { time: d ? d.toLocaleTimeString(I18N[state.lang].locale, { hour: "2-digit", minute: "2-digit" }) : "—" });
+      label = t("syncNow"); cls += " ok";
+    }
+    note.className = cls; note.textContent = text; txt.textContent = label;
+    off.hidden = !sync.enabled;
+    gear.classList.toggle("sync-attn", sync.enabled && (sync.state === "needsauth" || sync.state === "error"));
+  }
+
+  function loadGis() {
+    return new Promise(function (resolve, reject) {
+      if (window.google && google.accounts && google.accounts.oauth2) { resolve(); return; }
+      var s = document.createElement("script");
+      s.src = "https://accounts.google.com/gsi/client"; s.async = true;
+      s.onload = function () { resolve(); };
+      s.onerror = function () { reject(Object.assign(new Error("gis"), { gis: true })); };
+      document.head.appendChild(s);
+    });
+  }
+  function authError(msg) { return Object.assign(new Error(msg || "auth"), { auth: true }); }
+  function getToken(interactive) {
+    if (sync.token && Date.now() < sync.exp - 60000) return Promise.resolve(sync.token);
+    return loadGis().then(function () {
+      return new Promise(function (resolve, reject) {
+        if (!sync.client) {
+          sync.client = google.accounts.oauth2.initTokenClient({
+            client_id: GOOGLE_CLIENT_ID, scope: SYNC_SCOPE,
+            callback: function (resp) { if (sync.onTok) sync.onTok(resp); },
+            error_callback: function (err) { if (sync.onErr) sync.onErr(err); }
+          });
+        }
+        sync.onTok = function (resp) {
+          if (!resp || resp.error || !resp.access_token) reject(authError(resp && resp.error));
+          else { sync.token = resp.access_token; sync.exp = Date.now() + (resp.expires_in || 3600) * 1000; resolve(sync.token); }
+        };
+        sync.onErr = function (err) { reject(authError(err && err.type)); };
+        sync.client.requestAccessToken({ prompt: interactive ? "" : "none" });
+      });
+    });
+  }
+
+  function gfetch(url, opts) {
+    opts = opts || {};
+    opts.headers = Object.assign({ Authorization: "Bearer " + sync.token }, opts.headers || {});
+    return fetch(url, opts).then(function (r) {
+      if (r.status === 401 || r.status === 403) { sync.token = ""; throw authError("http" + r.status); }
+      if (!r.ok) { var e = new Error("HTTP " + r.status); e.status = r.status; throw e; }
+      return r;
+    });
+  }
+  function findRemoteFile() {
+    var url = "https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&orderBy=createdTime&pageSize=10" +
+      "&fields=" + encodeURIComponent("files(id,createdTime)") + "&q=" + encodeURIComponent("name='" + SYNC_FILE_NAME + "' and trashed=false");
+    return gfetch(url).then(function (r) { return r.json(); }).then(function (j) {
+      return (j.files && j.files.length) ? j.files[0].id : "";
+    });
+  }
+  function downloadRemote() {
+    function dl() {
+      return gfetch("https://www.googleapis.com/drive/v3/files/" + sync.fileId + "?alt=media").then(function (r) { return r.json(); });
+    }
+    var ready = sync.fileId ? Promise.resolve() : findRemoteFile().then(function (id) { sync.fileId = id; });
+    return ready.then(function () {
+      if (!sync.fileId) return null;
+      return dl().catch(function (e) {
+        if (e.status === 404) { sync.fileId = ""; return findRemoteFile().then(function (id) { sync.fileId = id; return id ? dl() : null; }); }
+        throw e;
+      });
+    });
+  }
+  function uploadRemote(bodyStr) {
+    var existing = !!sync.fileId;
+    var url = "https://www.googleapis.com/upload/drive/v3/files" + (existing ? "/" + sync.fileId : "") + "?uploadType=resumable&fields=id";
+    var meta = existing ? {} : { name: SYNC_FILE_NAME, parents: ["appDataFolder"] };
+    return gfetch(url, {
+      method: existing ? "PATCH" : "POST",
+      headers: { "Content-Type": "application/json; charset=UTF-8", "X-Upload-Content-Type": "application/json" },
+      body: JSON.stringify(meta)
+    }).then(function (r) {
+      var loc = r.headers.get("Location");
+      if (!loc) throw new Error("no upload url");
+      return gfetch(loc, { method: "PUT", headers: { "Content-Type": "application/json" }, body: bodyStr });
+    }).then(function (r) { return r.json(); }).then(function (f) { if (f && f.id) sync.fileId = f.id; });
+  }
+
+  function fingerprint(orders, tb) {
+    return orders.map(function (o) { return o.id + "@" + (o.updatedAt || 0); }).sort().join("|") + "#" +
+      Object.keys(tb).sort().map(function (k) { return k + "@" + tb[k]; }).join("|");
+  }
+  function mergeData(remote) {
+    var rOrders = (remote && Array.isArray(remote.orders)) ? remote.orders : [];
+    var rTombs = (remote && remote.tombs && typeof remote.tombs === "object") ? remote.tombs : {};
+    var tb = {}, now = Date.now();
+    [tombs, rTombs].forEach(function (src) {
+      Object.keys(src).forEach(function (id) { if (now - src[id] < TOMB_KEEP_MS) tb[id] = Math.max(tb[id] || 0, src[id]); });
+    });
+    var byId = {};
+    state.orders.forEach(function (o) { byId[o.id] = o; });
+    rOrders.forEach(function (r) {
+      if (!r || !r.id) return;
+      var cur = byId[r.id];
+      if (!cur || (r.updatedAt || 0) > (cur.updatedAt || 0)) byId[r.id] = r;
+    });
+    var merged = [];
+    Object.keys(byId).forEach(function (id) {
+      var o = byId[id];
+      if (tb[id] && tb[id] >= (o.updatedAt || 0)) return;   // deleted after last edit
+      if (tb[id]) delete tb[id];                             // edited after the delete: it lives
+      merged.push(o);
+    });
+    return { orders: merged, tombs: tb, remoteOrders: rOrders, remoteTombs: rTombs };
+  }
+  function mergeAndApply(remote) {
+    var m = mergeData(remote);
+    var localFp = fingerprint(state.orders, tombs);
+    var mergedFp = fingerprint(m.orders, m.tombs);
+    if (mergedFp !== localFp) {
+      var keep = {}; m.orders.forEach(function (o) { keep[o.id] = true; });
+      state.orders = m.orders;
+      tsMap = {}; stripSig = {};
+      state.orders.forEach(function (o) { tsMap[o.id] = o.updatedAt || 0; stripSig[o.id] = stripOf(o); });
+      tombs = m.tombs; saveTombs();
+      saveData();
+      renderAll();
+    }
+    var remoteFp = fingerprint(m.remoteOrders, m.remoteTombs);
+    return { needUpload: !remote || mergedFp !== remoteFp, count: m.orders.length };
+  }
+  function buildPayload() {
+    return JSON.stringify({ v: 1, savedAt: Date.now(), orders: state.orders, tombs: tombs });
+  }
+
+  function scheduleSync(ms) {
+    if (!sync.enabled || sync.state === "needsauth") return;
+    clearTimeout(sync.timer);
+    sync.timer = setTimeout(function () { runSync(false, false); }, ms);
+  }
+  function runSync(interactive, announce) {
+    if (!sync.enabled) return Promise.resolve();
+    if (!syncSupported()) { renderSyncUI(); return Promise.resolve(); }
+    if (sync.busy) { sync.again = true; return sync.promise; }
+    sync.busy = true;
+    setSyncState("syncing");
+    document.getElementById("btnSettings").classList.add("sync-busy");
+    var count = 0;
+    sync.promise = getToken(interactive).then(function () {
+      return downloadRemote();
+    }).then(function (remote) {
+      var r = mergeAndApply(remote);
+      count = r.count;
+      return r.needUpload ? uploadRemote(buildPayload()) : null;
+    }).then(function () {
+      sync.last = Date.now(); saveSyncPref(); setSyncState("idle");
+      if (announce) showToast(t("toastSyncOk", { n: count }));
+    }).catch(function (err) {
+      console.error("sync", err);
+      if (interactive && !sync.last) { sync.enabled = false; saveSyncPref(); }   // first connect never finished: stay off
+      if (!sync.enabled) { setSyncState("off"); if (announce) showToast(err && err.gis ? t("toastSyncNoGis") : (err && err.auth ? t("toastSyncNeed") : t("toastSyncFail"))); }
+      else if (err && err.gis) { setSyncState("error"); if (announce) showToast(t("toastSyncNoGis")); }
+      else if (err && err.auth) { setSyncState("needsauth"); if (announce) showToast(t("toastSyncNeed")); }
+      else { setSyncState("error"); if (announce) showToast(t("toastSyncFail")); }
+    }).then(function () {
+      sync.busy = false;
+      document.getElementById("btnSettings").classList.remove("sync-busy");
+      if (sync.again) { sync.again = false; scheduleSync(1500); }
+    });
+    return sync.promise;
+  }
+  function syncDisconnect() {
+    if (!confirm(t("confirmSyncOff"))) return;
+    var tok = sync.token;
+    sync.enabled = false; sync.token = ""; sync.exp = 0; sync.state = "off";
+    clearTimeout(sync.timer);
+    saveSyncPref(); renderSyncUI();
+    try { if (tok && window.google && google.accounts && google.accounts.oauth2) google.accounts.oauth2.revoke(tok, function () {}); } catch (e) { /* ignore */ }
+    showToast(t("toastSyncOff"));
+  }
+  function initSync() {
+    loadTombs(); loadSyncPref(); renderSyncUI();
+    document.getElementById("btnSyncConnect").addEventListener("click", function () {
+      if (!syncSupported()) { showToast(t("syncFileNote")); return; }
+      if (!sync.enabled) { sync.enabled = true; saveSyncPref(); }
+      runSync(true, true);
+    });
+    document.getElementById("btnSyncOff").addEventListener("click", syncDisconnect);
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "visible" && sync.enabled && sync.state !== "needsauth" && Date.now() - sync.last > 120000) runSync(false, false);
+    });
+    window.addEventListener("online", function () { if (sync.enabled && sync.state !== "needsauth") scheduleSync(1500); });
+  }
+
   // ---------- Event wiring ----------
   function init() {
     loadAppearancePref();
@@ -2865,9 +3210,12 @@
     renderHeaderBanner();
     initViewToggles();
     initBulkSelect();
+    initSync();
     loadData().then(function () {
+      syncInitMaps();
       state.loaded = true;
       renderAll();
+      if (sync.enabled) runSync(false, false);   // pick up changes made on other devices
     });
 
     Array.prototype.forEach.call(document.querySelectorAll(".lang-toggle .lang-btn"), function (btn) {
