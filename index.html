@@ -301,7 +301,7 @@
   /* Settings menu (gear) */
   .settings-wrap{ position:relative; }
   .settings-menu{
-    display:none; position:absolute; right:0; top: calc(100% + 8px); width:250px; max-width: calc(100vw - 16px); z-index:50;
+    display:none; position:absolute; right:0; top: calc(100% + 8px); width:272px; max-width: calc(100vw - 16px); z-index:50;
     background: var(--surface); border:1px solid var(--border); border-radius:14px; padding:6px;
     box-shadow: 0 12px 32px rgba(0,0,0,.45);
   }
@@ -662,6 +662,29 @@
   .hbody .hsub{ margin-top:6px; padding-left:14px; position:relative; }
   .hbody .hsub::before{ content:"•"; position:absolute; left:2px; color: var(--accent-ink); }
   /* Google Drive sync (menu + gear dot) */
+  .acct-block{ padding: 2px 0 0; }
+  .acct-head{ display:flex; align-items:center; gap:10px; padding:8px 10px 6px; }
+  .acct-head[hidden]{ display:none; }
+  .acct-avatar{
+    flex:0 0 auto; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background: var(--accent); color: var(--on-accent); font-weight:700; font-size:15px; text-transform:uppercase;
+  }
+  .acct-meta{ min-width:0; }
+  .acct-email{ font-size:13.5px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .acct-sub{ font-size:11.5px; color: var(--text-muted); line-height:1.35; }
+  .acct-sub.ok{ color: var(--accent-ink); }
+  .acct-sub.warn{ color: var(--due-ink); }
+  .acct-hint{ margin: 4px 12px 8px; }
+  .acct-policy{ display:block; margin: 2px 12px 8px; font-size:11.5px; color: var(--text-muted); text-decoration: underline; }
+  .acct-policy:hover{ color: var(--accent-ink); }
+  .hbody .plink{ color: var(--accent-ink); font-weight:600; }
+  .acct-block.signed-out .menu-item#btnSyncConnect{
+    justify-content:center; gap:10px; width: calc(100% - 12px); margin: 0 6px 6px; padding: 12px 14px;
+    border:1px solid var(--border); border-radius:999px; background: var(--surface-alt); font-weight:600;
+  }
+  .acct-block.signed-out .menu-item#btnSyncConnect:hover{ border-color: var(--accent); }
+  .acct-block.signed-out .menu-item#btnSyncConnect svg{ color: var(--text); width:18px; height:18px; }
+  .acct-block.signed-in .ic-signin, .acct-block.signed-out .ic-sync{ display:none; }
   .menu-note{ font-size:11.5px; color: var(--text-muted); margin: 0 10px 6px 12px; line-height:1.4; }
   .menu-note.ok{ color: var(--accent-ink); }
   .menu-note.warn{ color: var(--due-ink); }
@@ -794,6 +817,28 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
           </button>
           <div class="settings-menu" id="settingsMenu" role="menu">
+            <div id="syncSection" class="acct-block">
+              <div class="acct-head" id="acctHead" hidden>
+                <span class="acct-avatar" id="acctAvatar">G</span>
+                <div class="acct-meta"><div class="acct-email" id="acctEmail"></div><div class="acct-sub" id="syncNote"></div></div>
+              </div>
+              <div class="menu-note acct-hint" id="syncHint"></div>
+              <button class="menu-item" id="btnSyncConnect" role="menuitem">
+                <svg class="ic-signin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l5-5-5-5M15 12H3"/></svg>
+                <svg class="ic-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-13.7 5.6M4 12a8 8 0 0 1 13.7-5.6"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>
+                <span id="syncConnectText"></span>
+              </button>
+              <button class="menu-item" id="btnSyncSwitch" role="menuitem" hidden>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.4 3.4-5.5 7-5.5s6.4 2.1 7 5.5"/></svg>
+                <span data-i18n="syncSwitch">เปลี่ยนบัญชี</span>
+              </button>
+              <button class="menu-item" id="btnSyncOff" role="menuitem" hidden>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                <span data-i18n="syncDisconnect">ออกจากระบบ</span>
+              </button>
+              <a class="acct-policy" href="privacy.html" target="_blank" rel="noopener" data-i18n="syncPolicyLink">นโยบายความเป็นส่วนตัว</a>
+            </div>
+            <div class="menu-sep"></div>
             <div class="menu-appearance">
               <div class="menu-label" data-i18n="menuMode">โหมด</div>
               <div class="mode-seg" role="group">
@@ -824,23 +869,6 @@
               <span data-i18n="importBtn">นำเข้าข้อมูล</span>
             </button>
             <input type="file" id="importFile" accept="application/json" style="display:none">
-            <div id="syncSection">
-            <div class="menu-sep"></div>
-            <div class="menu-label" style="margin:6px 10px 4px" data-i18n="syncLabel">ซิงค์ข้อมูล (Google Drive)</div>
-            <div class="menu-note" id="syncNote"></div>
-            <button class="menu-item" id="btnSyncConnect" role="menuitem">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-13.7 5.6M4 12a8 8 0 0 1 13.7-5.6"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>
-              <span id="syncConnectText"></span>
-            </button>
-            <button class="menu-item" id="btnSyncSwitch" role="menuitem" hidden>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.4 3.4-5.5 7-5.5s6.4 2.1 7 5.5"/></svg>
-              <span data-i18n="syncSwitch">เปลี่ยนบัญชี Google</span>
-            </button>
-            <button class="menu-item" id="btnSyncOff" role="menuitem" hidden>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-              <span data-i18n="syncDisconnect">ตัดการเชื่อมต่อ</span>
-            </button>
-            </div>
             <div class="menu-sep"></div>
             <button class="menu-item" id="btnHelp" role="menuitem">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 8v.01" stroke-linecap="round"/></svg>
@@ -1125,7 +1153,7 @@
 <div class="hstep"><div class="hnum">2</div><div class="hbody"><h4 data-i18n="hG3T">โหมดและสีหลัก</h4><p data-i18n="hG3D">สลับโหมดสว่าง/มืด และเลือกสีหลักของปุ่มและลิงก์ ส่วนสีของสถานะคงที่เสมอเพื่อให้แยกง่าย</p></div></div>
 <div class="hstep"><div class="hnum">3</div><div class="hbody"><h4 data-i18n="hG4T">ตกแต่ง header</h4><p data-i18n="hG4D">เปลี่ยนชื่อ คำโปรย และใส่รูปพื้นหลังของคุณเอง</p></div></div>
 <div class="hstep"><div class="hnum">4</div><div class="hbody"><h4 data-i18n="hG5T">ส่งออก / นำเข้าข้อมูล</h4><p data-i18n="hG5D">กด “ส่งออกข้อมูล” เป็นระยะเพื่อเก็บเป็นไฟล์สำรอง ใช้ “นำเข้าข้อมูล” เพื่อดึงกลับหรือย้ายไปเครื่องอื่น การนำเข้าจะเพิ่มต่อจากข้อมูลที่มี ไม่ทับของเดิม</p></div></div>
-<div class="hstep"><div class="hnum">5</div><div class="hbody"><h4 data-i18n="hSy1T">ล็อกอินด้วย Google เพื่อใช้หลายเครื่อง (ไม่บังคับ)</h4><p data-i18n="hSy1D">จะใช้แบบไม่ล็อกอินก็ได้ ข้อมูลเก็บในเครื่องนี้ แต่ถ้าอยากเห็นข้อมูลชุดเดียวกันทั้งมือถือและคอม ให้กด “ล็อกอินด้วย Google” ในเมนูเฟือง ข้อมูลจะถูกเก็บเป็นไฟล์ในโฟลเดอร์ลับของแอปใน Google Drive ของคุณเอง แอปเข้าถึงไฟล์อื่นของคุณไม่ได้ เมนูจะแสดงอีเมลของบัญชีที่ล็อกอินอยู่</p><div class="hviz"><span class="mk-btn"><span data-i18n="syncConnect">เชื่อมต่อ Google Drive</span></span></div></div></div>
+<div class="hstep"><div class="hnum">5</div><div class="hbody"><h4 data-i18n="hSy1T">ล็อกอินด้วย Google เพื่อใช้หลายเครื่อง (ไม่บังคับ)</h4><p data-i18n="hSy1D">จะใช้แบบไม่ล็อกอินก็ได้ ข้อมูลเก็บในเครื่องนี้ แต่ถ้าอยากเห็นข้อมูลชุดเดียวกันทั้งมือถือและคอม ให้กด “ล็อกอินด้วย Google” ในเมนูเฟือง ข้อมูลจะถูกเก็บเป็นไฟล์ในโฟลเดอร์ลับของแอปใน Google Drive ของคุณเอง แอปเข้าถึงไฟล์อื่นของคุณไม่ได้ เมนูจะแสดงอีเมลของบัญชีที่ล็อกอินอยู่</p><p><a class="plink" href="privacy.html" target="_blank" rel="noopener" data-i18n="syncPolicyLinkLong">อ่านนโยบายความเป็นส่วนตัว</a></p><div class="hviz"><span class="mk-btn"><span data-i18n="syncConnect">เชื่อมต่อ Google Drive</span></span></div></div></div>
 <div class="hstep"><div class="hnum">6</div><div class="hbody"><h4 data-i18n="hSy2T">ล็อกอินแล้วเกิดอะไรขึ้น</h4><p class="hsub" data-i18n="hSy2b">ถ้าคุณจดข้อมูลไว้ก่อนล็อกอิน ข้อมูลนั้นจะถูกรวมเข้ากับบัญชีที่ล็อกอิน และกลายเป็นข้อมูลของบัญชีนั้น</p><p class="hsub" data-i18n="hSy2c">บนเครื่องอื่น เปิดลิงก์เดียวกันแล้วล็อกอินด้วยบัญชีเดียวกัน ข้อมูลจะมารวมกันให้เอง</p><p class="hsub" data-i18n="hSy2d">หลังแก้ไขหรือลบ ระบบซิงค์ให้ภายในไม่กี่วินาที หรือกด “ซิงค์เดี๋ยวนี้” ถ้าสองเครื่องแก้รายการเดียวกัน ฉบับที่แก้ทีหลังจะชนะ</p><p class="hsub" data-i18n="hSy2e">ถ้ามีจุดสีส้มที่ปุ่มเฟือง แปลว่าต้องล็อกอินใหม่ (การล็อกอินหมดอายุได้) กด “ล็อกอินอีกครั้ง” ครั้งเดียวก็ใช้ต่อได้</p><p class="hsub" data-i18n="hSy2g">เปลี่ยนบัญชีได้ที่เมนู “เปลี่ยนบัญชี” หน้านี้จะแสดงข้อมูลของบัญชีใหม่ ถ้าบัญชีใหม่ยังไม่มีข้อมูลจะเริ่มจากว่างเปล่า ข้อมูลของแต่ละบัญชีไม่ปนกัน และกลับมาเมื่อสลับกลับ</p><p class="hsub" data-i18n="hSy2h">“ออกจากระบบ” จะล้างข้อมูลในเครื่องนี้ (เหมาะกับเครื่องที่ใช้ร่วมกัน) ข้อมูลยังอยู่ใน Drive ของบัญชี ล็อกอินกลับมาก็เห็นครบ</p><p class="hsub" data-i18n="hSy2f">ถ้ามีรูปเยอะ การซิงค์ครั้งแรกอาจช้า</p></div></div>
 <div class="hstep"><div class="hnum">7</div><div class="hbody"><h4 data-i18n="hG6T">ภาษา</h4><p data-i18n="hG6D">สลับไทย/อังกฤษได้ที่ปุ่ม TH / EN มุมขวาบน</p></div></div>
 </div>
@@ -1322,8 +1350,8 @@
       hG5D: "กด “ส่งออกข้อมูล” เป็นระยะเพื่อเก็บเป็นไฟล์สำรอง ใช้ “นำเข้าข้อมูล” เพื่อดึงกลับหรือย้ายไปเครื่องอื่น การนำเข้าจะเพิ่มต่อจากข้อมูลที่มี ไม่ทับของเดิม",
       hG6T: "ภาษา",
       hG6D: "สลับไทย/อังกฤษได้ที่ปุ่ม TH / EN มุมขวาบน",
-      hSy1T: "ล็อกอินด้วย Google เพื่อใช้หลายเครื่อง (ไม่บังคับ)",
-      hSy1D: "จะใช้แบบไม่ล็อกอินก็ได้ ข้อมูลเก็บในเครื่องนี้ แต่ถ้าอยากเห็นข้อมูลชุดเดียวกันทั้งมือถือและคอม ให้กด “ล็อกอินด้วย Google” ในเมนูเฟือง ข้อมูลจะถูกเก็บเป็นไฟล์ในโฟลเดอร์ลับของแอปใน Google Drive ของคุณเอง แอปเข้าถึงไฟล์อื่นของคุณไม่ได้ เมนูจะแสดงอีเมลของบัญชีที่ล็อกอินอยู่",
+      hSy1T: "เข้าสู่ระบบด้วย Google เพื่อใช้หลายเครื่อง (ไม่บังคับ)",
+      hSy1D: "จะใช้แบบไม่ล็อกอินก็ได้ ข้อมูลเก็บในเครื่องนี้ แต่ถ้าอยากเห็นข้อมูลชุดเดียวกันทั้งมือถือและคอม ให้กด “เข้าสู่ระบบด้วย Google” ที่ด้านบนสุดของเมนูเฟือง ข้อมูลจะถูกเก็บเป็นไฟล์ในโฟลเดอร์ลับของแอปใน Google Drive ของคุณเอง แอปเข้าถึงไฟล์อื่นของคุณไม่ได้ เมนูจะแสดงอีเมลของบัญชีที่ล็อกอินอยู่",
       hSy2T: "ล็อกอินแล้วเกิดอะไรขึ้น",
       hSy2b: "ถ้าคุณจดข้อมูลไว้ก่อนล็อกอิน ข้อมูลนั้นจะถูกรวมเข้ากับบัญชีที่ล็อกอิน และกลายเป็นข้อมูลของบัญชีนั้น",
       hSy2c: "บนเครื่องอื่น เปิดลิงก์เดียวกันแล้วล็อกอินด้วยบัญชีเดียวกัน ข้อมูลจะมารวมกันให้เอง",
@@ -1460,13 +1488,17 @@
       groupCancelled: "ยกเลิก",
       groupToggleTitle: "จัดกลุ่มตามสถานะ",
       syncLabel: "บัญชี & ซิงค์ข้อมูล",
-      syncOffNote: "ยังไม่ได้ล็อกอิน — ข้อมูลเก็บในเครื่องนี้เท่านั้น",
+      syncOffNote: "ล็อกอินเพื่อใช้ข้อมูลชุดเดียวกันทุกเครื่อง ถ้าไม่ล็อกอิน ข้อมูลจะเก็บในเครื่องนี้เท่านั้น",
       syncFileNote: "ซิงค์ใช้ได้เมื่อเปิดผ่านลิงก์เว็บ",
-      syncConnect: "ล็อกอินด้วย Google",
+      syncConnect: "เข้าสู่ระบบด้วย Google",
       syncNow: "ซิงค์เดี๋ยวนี้",
       syncSignIn: "ล็อกอินอีกครั้ง",
       syncDisconnect: "ออกจากระบบ",
       syncSwitch: "เปลี่ยนบัญชี",
+      syncPolicyLink: "นโยบายความเป็นส่วนตัว",
+      syncPolicyLinkLong: "อ่านนโยบายความเป็นส่วนตัว ↗",
+      syncLastNote: "ซิงค์ล่าสุด {time}",
+      syncAcctFallback: "บัญชี Google",
       syncOkNoteMail: "ล็อกอินเป็น {email} · ซิงค์ล่าสุด {time}",
       confirmSyncOffDirty: "ยังมีการแก้ไขล่าสุดที่ซิงค์ขึ้น Drive ไม่สำเร็จ ถ้าออกจากระบบตอนนี้ การแก้ไขนั้นจะหาย ต้องการออกจากระบบต่อไหม?",
       confirmSyncSwitch: "เปลี่ยนบัญชี Google? ข้อมูลในเครื่องนี้จะถูกแทนที่ด้วยข้อมูลของบัญชีใหม่ (ถ้าบัญชีใหม่ยังไม่มีข้อมูล จะเริ่มจากว่างเปล่า) ข้อมูลของบัญชีปัจจุบันยังอยู่ใน Drive ของบัญชีนั้น และกลับมาได้เมื่อสลับกลับ",
@@ -1575,7 +1607,7 @@
       hG6T: "Language",
       hG6D: "Switch Thai/English with the TH / EN toggle at the top right.",
       hSy1T: "Sign in with Google to use several devices (optional)",
-      hSy1D: "You can use the app without signing in; your data stays on this device. To see the same data on your phone and computer, tap “Sign in with Google” in the gear menu. Your data is saved as a file in the app's hidden folder in your own Google Drive; the app can't see any of your other files. The menu shows the email of the account you're signed in with.",
+      hSy1D: "You can use the app without signing in; your data stays on this device. To see the same data on your phone and computer, tap “Sign in with Google” at the top of the gear menu. Your data is saved as a file in the app's hidden folder in your own Google Drive; the app can't see any of your other files. The menu shows the email of the account you're signed in with.",
       hSy2T: "What happens when you sign in",
       hSy2b: "If you logged orders before signing in, they are merged into the account you sign in with and become that account's data.",
       hSy2c: "On another device, open the same link and sign in with the same account; the data merges automatically.",
@@ -1712,13 +1744,17 @@
       groupCancelled: "Cancelled",
       groupToggleTitle: "Group by status",
       syncLabel: "Account & sync",
-      syncOffNote: "Not signed in — your data stays on this device only",
+      syncOffNote: "Sign in to use the same data on every device. Without signing in, your data stays on this device only.",
       syncFileNote: "Sync works when opened from the web link",
       syncConnect: "Sign in with Google",
       syncNow: "Sync now",
       syncSignIn: "Sign in again",
       syncDisconnect: "Sign out",
       syncSwitch: "Switch account",
+      syncPolicyLink: "Privacy policy",
+      syncPolicyLinkLong: "Read the privacy policy ↗",
+      syncLastNote: "Last synced {time}",
+      syncAcctFallback: "Google account",
       syncOkNoteMail: "Signed in as {email} · last synced {time}",
       confirmSyncOffDirty: "Your latest edits couldn't be synced to Drive. If you sign out now they will be lost. Sign out anyway?",
       confirmSyncSwitch: "Switch Google account? The data on this device will be replaced with the new account's data (an account with no data starts empty). The current account's data stays in its own Drive and comes back when you switch back.",
@@ -3023,22 +3059,31 @@
   function renderSyncUI() {
     var note = document.getElementById("syncNote");
     if (!note) return;
-    var txt = document.getElementById("syncConnectText");
-    var off = document.getElementById("btnSyncOff");
-    var gear = document.getElementById("btnSettings");
-    var cls = "menu-note", text, label;
-    if (!sync.enabled) { text = t("syncOffNote"); label = t("syncConnect"); }
-    else if (sync.state === "syncing") { text = t("syncDoing"); label = t("syncNow"); cls += " ok"; }
-    else if (sync.state === "needsauth") { text = t("syncNeedNote") + (sync.email ? " · " + sync.email : ""); label = t("syncSignIn"); cls += " warn"; }
-    else if (sync.state === "error") { text = t("syncErrNote"); label = t("syncNow"); cls += " warn"; }
-    else {
-      var d = sync.last ? new Date(sync.last) : null;
-      var tm = d ? d.toLocaleTimeString(I18N[state.lang].locale, { hour: "2-digit", minute: "2-digit" }) : "—";
-      text = sync.email ? t("syncOkNoteMail", { email: sync.email, time: tm }) : t("syncOkNote", { time: tm });
-      label = t("syncNow"); cls += " ok";
+    var block = document.getElementById("syncSection"), head = document.getElementById("acctHead"), hint = document.getElementById("syncHint");
+    var txt = document.getElementById("syncConnectText"), gear = document.getElementById("btnSettings");
+    var cls = "acct-sub", text = "", label;
+    if (!sync.enabled) {
+      block.className = "acct-block signed-out"; head.hidden = true;
+      hint.hidden = false; hint.textContent = t("syncOffNote");
+      note.textContent = ""; label = t("syncConnect");
+    } else {
+      block.className = "acct-block signed-in"; head.hidden = false; hint.hidden = true;
+      var em = sync.email || "";
+      document.getElementById("acctEmail").textContent = em || t("syncAcctFallback");
+      document.getElementById("acctAvatar").textContent = (em || "G").charAt(0);
+      if (sync.state === "syncing") { text = t("syncDoing"); label = t("syncNow"); cls += " ok"; }
+      else if (sync.state === "needsauth") { text = t("syncNeedNote"); label = t("syncSignIn"); cls += " warn"; }
+      else if (sync.state === "error") { text = t("syncErrNote"); label = t("syncNow"); cls += " warn"; }
+      else {
+        var d = sync.last ? new Date(sync.last) : null;
+        text = t("syncLastNote", { time: d ? d.toLocaleTimeString(I18N[state.lang].locale, { hour: "2-digit", minute: "2-digit" }) : "—" });
+        label = t("syncNow"); cls += " ok";
+      }
+      note.className = cls; note.textContent = text;
     }
-    note.className = cls; note.textContent = text; txt.textContent = label;
-    off.hidden = !sync.enabled;
+    if (!sync.enabled) note.className = "acct-sub";
+    txt.textContent = label;
+    document.getElementById("btnSyncOff").hidden = !sync.enabled;
     document.getElementById("btnSyncSwitch").hidden = !sync.enabled;
     gear.classList.toggle("sync-attn", sync.enabled && (sync.state === "needsauth" || sync.state === "error"));
   }
