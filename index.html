@@ -539,6 +539,17 @@
   .card .price-row .full{ font-weight:600; }
   .card .price-row .remain{ color: var(--due-ink); font-size: 11px; margin-top:1px; }
   .card .date{ margin-top: 4px; font-size: 11px; color: var(--text-faint); }
+  /* Phones: two cards per row with a shorter picture, so long lists need far less scrolling. */
+  @media (max-width: 480px){
+    .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+    .card .thumb, .card .thumb-placeholder{ aspect-ratio: 4/3; }
+    .card-body{ padding: 8px 9px 9px; }
+    .card h3{ font-size: 12.5px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .card .shop{ font-size: 11px; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .card .price-row{ margin-top: 4px; font-size: 12.5px; }
+    .card .price-row .remain{ font-size: 10.5px; }
+    .card .date{ display:none; }
+  }
 
   .empty-state{
     grid-column: 1/-1; text-align:center; padding: 70px 20px; color: var(--text-muted);
