@@ -9,6 +9,8 @@ function init() {
   initViewToggles();
   initBulkSelect();
   initSync();
+  initHome();
+  initRouter();
   loadData().then(function () {
     syncInitMaps();
     state.loaded = true;
@@ -184,38 +186,6 @@ function init() {
     syncStatusFilterUI();
     renderGrid();
   });
-
-  // Settings (gear) menu
-  (function () {
-    var btn = document.getElementById("btnSettings");
-    var menu = document.getElementById("settingsMenu");
-    // Keep the popup inside the viewport (the gear can sit near the left edge in banner mode / narrow screens).
-    function placeMenu() {
-      menu.style.right = "0";
-      var r = menu.getBoundingClientRect(), vw = document.documentElement.clientWidth, m = 8, shift = 0;
-      if (r.left < m) shift = m - r.left;                 // overflows left -> push right
-      else if (r.right > vw - m) shift = (vw - m) - r.right; // overflows right -> pull left
-      if (shift) menu.style.right = (-shift) + "px";
-      var room = window.innerHeight - menu.getBoundingClientRect().top - m;
-      menu.style.maxHeight = Math.max(160, room) + "px";
-      menu.style.overflowY = "auto";
-    }
-    function setOpen(open) {
-      menu.classList.toggle("open", open);
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-      if (open) placeMenu();
-    }
-    window.addEventListener("resize", function () { if (menu.classList.contains("open")) placeMenu(); });
-    btn.addEventListener("click", function (e) { e.stopPropagation(); setOpen(!menu.classList.contains("open")); });
-    // Only real actions close the menu; mode / color taps keep it open.
-    menu.addEventListener("click", function (e) { if (e.target.closest(".menu-item")) setOpen(false); });
-    document.addEventListener("click", function (e) {
-      if (menu.classList.contains("open") && !menu.contains(e.target)) setOpen(false);
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && menu.classList.contains("open")) { setOpen(false); btn.focus(); }
-    });
-  })();
 
   // Main image: one zone (click to choose, drag & drop, paste) + change / remove
   var mainZone = document.getElementById("mainPreview");

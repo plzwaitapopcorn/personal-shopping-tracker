@@ -63,7 +63,8 @@ function openDetailModal(id) {
       '<div class="detail-item"><div class="k">' + t("detailFullPrice") + '</div><div class="v">' + priceHtml(o) + "</div></div>" +
       (o.depositPaid
         ? '<div class="detail-item"><div class="k">' + t("detailDepositPaid") + '</div><div class="v">฿' + money(o.depositPaid) + "</div></div>" +
-          '<div class="detail-item"><div class="k">' + t("detailRemainDue") + '</div><div class="v remain">฿' + money(remain) + "</div></div>"
+          '<div class="detail-item"><div class="k">' + t("detailRemainDue") + '</div><div class="v remain">฿' + money(remain) + "</div></div>" +
+          (o.dueDate && remain > 0 ? '<div class="detail-item"><div class="k">' + t("detailDueDate") + '</div><div class="v">' + formatDateLong(o.dueDate) + "</div></div>" : "")
         : '<div class="detail-item"><div class="k">' + t("detailDepositLabel") + '</div><div class="v">' + t("detailNoDeposit") + "</div></div>") +
     "</div>" +
     trackingHtml +

@@ -320,4 +320,6 @@ function renderAll() {
   renderStats();
   renderMonthOptions();
   renderGrid();
+  if (typeof renderNav === "function") renderNav();
+  if (typeof renderHome === "function" && currentPageId === "home") renderHome();
 }

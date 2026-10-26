@@ -56,12 +56,15 @@ function saveSyncPref() {
 }
 function syncSupported() { return /^https:$/.test(location.protocol) || location.hostname === "localhost" || location.hostname === "127.0.0.1"; }
 
+function setSettingsBusy(on) {
+  Array.prototype.forEach.call(document.querySelectorAll(".js-settings-btn"), function (g) { g.classList.toggle("sync-busy", on); });
+}
 function setSyncState(st) { sync.state = st; renderSyncUI(); }
 function renderSyncUI() {
   var note = document.getElementById("syncNote");
   if (!note) return;
   var block = document.getElementById("syncSection"), head = document.getElementById("acctHead"), hint = document.getElementById("syncHint");
-  var txt = document.getElementById("syncConnectText"), gear = document.getElementById("btnSettings");
+  var txt = document.getElementById("syncConnectText");
   var cls = "acct-sub", text = "", label;
   if (!sync.enabled) {
     block.className = "acct-block signed-out"; head.hidden = true;
@@ -86,7 +89,9 @@ function renderSyncUI() {
   txt.textContent = label;
   document.getElementById("btnSyncOff").hidden = !sync.enabled;
   document.getElementById("btnSyncSwitch").hidden = !sync.enabled;
-  gear.classList.toggle("sync-attn", sync.enabled && (sync.state === "needsauth" || sync.state === "error"));
+  var attn = sync.enabled && (sync.state === "needsauth" || sync.state === "error");
+  Array.prototype.forEach.call(document.querySelectorAll(".js-settings-btn"), function (g) { g.classList.toggle("sync-attn", attn); });
+  if (typeof renderNavAccount === "function") renderNavAccount();
 }
 
 function loadGis() {
@@ -257,7 +262,7 @@ function runSync(interactive, announce, opts) {
   if (sync.busy) { sync.again = true; return sync.promise; }
   sync.busy = true;
   setSyncState("syncing");
-  document.getElementById("btnSettings").classList.add("sync-busy");
+  setSettingsBusy(true);
   sync.bigMb = 0;
   var count = 0, prevId = sync.fileId, prevEmail = sync.email, newEmail = "", revAtStart = sync.rev;
   sync.promise = getToken(interactive, opts).then(function () {
@@ -296,7 +301,7 @@ function runSync(interactive, announce, opts) {
     else { setSyncState("error"); if (announce) showToast(t("toastSyncFail") + " (" + ((err && err.message) || "error") + ")"); }
   }).then(function () {
     sync.busy = false;
-    document.getElementById("btnSettings").classList.remove("sync-busy");
+    setSettingsBusy(false);
     if (sync.again) { sync.again = false; scheduleSync(1500); }
     setTimeout(autoOptimize, 800);
   });

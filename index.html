@@ -16,92 +16,84 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,500;0,600;0,700;1,800;1,900&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=20261025b">
+<link rel="stylesheet" href="css/app.css?v=20261026a">
 </head>
 <body>
 
-<div class="wrap">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+ <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10"/></symbol>
+ <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+ <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></symbol>
+ <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+ <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/></symbol>
+ <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+ <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></symbol>
+ <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+ <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7"/><circle cx="7" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/></symbol>
+ <symbol id="i-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></symbol>
+ <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H18v3"/><rect x="4" y="8" width="16" height="11" rx="2.5"/><circle cx="16" cy="13.5" r="1.1"/></symbol>
+</defs></svg>
 
-  <header class="app-header" id="appHeader">
-    <div class="header-overlay" id="headerOverlay"></div>
-    <div class="header-content">
-      <div class="header-text">
-        <h1 id="headerTitle">Shopping <span class="hl">Tracker</span></h1>
-        <p id="headerSubtitle">บันทึกทุกออเดอร์ที่ซื้อไว้ ไม่มีตกหล่น — ข้อมูลเป็นของคุณ เก็บในเครื่อง และล็อกอินด้วย Google เพื่อใช้หลายเครื่องได้ถ้าต้องการ</p>
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#/home" aria-label="DAYBOOK">
+      <img src="icons/icon-192.png" alt="" width="34" height="34">
+      <b>DAY<i>BOOK</i></b>
+    </a>
+    <nav class="nav-list" id="navMain" aria-label="Main"></nav>
+    <div class="sp"></div>
+    <a class="side-acct js-acct" href="#/settings" id="sideAcct" hidden>
+      <span class="acct-avatar" id="sideAvatar">G</span>
+      <span class="side-acct-meta"><span class="side-acct-email" id="sideEmail"></span><small id="sideSync"></small></span>
+    </a>
+    <div class="side-tools">
+      <div class="lang-toggle" role="group" aria-label="Language / ภาษา">
+        <button type="button" class="lang-btn" data-lang="th">TH</button>
+        <button type="button" class="lang-btn active" data-lang="en">EN</button>
       </div>
-      <div class="header-actions">
-        <div class="lang-toggle" role="group" aria-label="Language / ภาษา">
-          <button type="button" class="lang-btn" data-lang="th">TH</button>
-          <button type="button" class="lang-btn active" data-lang="en">EN</button>
-        </div>
-        <div class="settings-wrap">
-          <button class="btn-icon-info" id="btnSettings" aria-haspopup="true" aria-expanded="false" data-i18n-title="settingsTitle" title="ตั้งค่า" aria-label="ตั้งค่า">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
-          </button>
-          <div class="settings-menu" id="settingsMenu" role="menu">
-            <div id="syncSection" class="acct-block">
-              <div class="acct-head" id="acctHead" hidden>
-                <span class="acct-avatar" id="acctAvatar">G</span>
-                <div class="acct-meta"><div class="acct-email" id="acctEmail"></div><div class="acct-sub" id="syncNote"></div></div>
-              </div>
-              <div class="menu-note acct-hint" id="syncHint"></div>
-              <button class="menu-item" id="btnSyncConnect" role="menuitem">
-                <svg class="ic-signin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l5-5-5-5M15 12H3"/></svg>
-                <svg class="ic-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-13.7 5.6M4 12a8 8 0 0 1 13.7-5.6"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>
-                <span id="syncConnectText"></span>
-              </button>
-              <button class="menu-item" id="btnSyncSwitch" role="menuitem" hidden>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.4 3.4-5.5 7-5.5s6.4 2.1 7 5.5"/></svg>
-                <span data-i18n="syncSwitch">เปลี่ยนบัญชี</span>
-              </button>
-              <button class="menu-item" id="btnSyncOff" role="menuitem" hidden>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-                <span data-i18n="syncDisconnect">ออกจากระบบ</span>
-              </button>
-              <a class="acct-policy" href="privacy.html" target="_blank" rel="noopener" data-i18n="syncPolicyLink">นโยบายความเป็นส่วนตัว</a>
-            </div>
-            <div class="menu-sep"></div>
-            <div class="menu-appearance">
-              <div class="menu-label" data-i18n="menuMode">โหมด</div>
-              <div class="mode-seg" role="group">
-                <button type="button" class="mode-btn" data-mode="light" aria-pressed="false">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-                  <span data-i18n="themeLight">สว่าง</span>
-                </button>
-                <button type="button" class="mode-btn" data-mode="dark" aria-pressed="false">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-                  <span data-i18n="themeDark">มืด</span>
-                </button>
-              </div>
-              <div class="menu-label" style="margin-top:10px" data-i18n="menuPrimary">สีหลัก</div>
-              <div class="color-row" id="colorRow"></div>
-            </div>
-            <div class="menu-sep"></div>
-            <button class="menu-item" id="btnCustomizeHeader" role="menuitem">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg>
-              <span data-i18n="customizeHeaderTooltip">ตกแต่ง Header</span>
-            </button>
-            <div class="menu-sep"></div>
-            <button class="menu-item" id="btnExport" role="menuitem" data-i18n-title="exportBtnTooltip" title="บันทึกข้อมูลทั้งหมดเป็นไฟล์สำรอง">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-              <span data-i18n="exportBtn">ส่งออกข้อมูล</span>
-            </button>
-            <button class="menu-item" id="btnImport" role="menuitem" data-i18n-title="importBtnTooltip" title="นำเข้าไฟล์สำรองข้อมูล">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20V9M7 14l5-5 5 5M5 4h14"/></svg>
-              <span data-i18n="importBtn">นำเข้าข้อมูล</span>
-            </button>
-            <input type="file" id="importFile" accept="application/json" style="display:none">
-            <div class="menu-sep"></div>
-            <button class="menu-item" id="btnHelp" role="menuitem">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 8v.01" stroke-linecap="round"/></svg>
-              <span data-i18n="helpBtnTooltip">วิธีใช้งาน</span>
-            </button>
-          </div>
-        </div>
-      </div>
+      <button type="button" class="tool-btn" id="btnThemeQuick" data-i18n-title="themeQuick" title="สลับโหมดสว่าง/มืด" aria-label="สลับโหมดสว่าง/มืด">
+        <svg class="ic ic-sun" viewBox="0 0 24 24"><use href="#i-sun"/></svg><svg class="ic ic-moon" viewBox="0 0 24 24"><use href="#i-moon"/></svg>
+      </button>
+      <a class="tool-btn js-settings-btn" id="btnSettings" href="#/settings" data-i18n-title="settingsTitle" title="ตั้งค่า" aria-label="ตั้งค่า">
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-gear"/></svg>
+      </a>
     </div>
-  </header>
+  </aside>
 
+  <div class="app-main" id="appMain">
+
+    <div class="mobile-top">
+      <a class="brand" href="#/home" aria-label="DAYBOOK"><img src="icons/icon-192.png" alt="" width="30" height="30"><b>DAY<i>BOOK</i></b></a>
+      <a class="tool-btn js-settings-btn" href="#/settings" data-i18n-title="settingsTitle" title="ตั้งค่า" aria-label="ตั้งค่า">
+        <svg class="ic" viewBox="0 0 24 24"><use href="#i-gear"/></svg>
+      </a>
+    </div>
+
+    <!-- ===== Home ===== -->
+    <section class="page" id="page-home" data-page="home" hidden>
+      <header class="app-header" id="appHeader">
+        <div class="header-overlay" id="headerOverlay"></div>
+        <div class="header-content">
+          <div class="header-text">
+            <div class="eyebrow" id="headerEyebrow"></div>
+            <h1 id="headerTitle">Today <span class="hl">overview</span></h1>
+            <p id="headerSubtitle"></p>
+          </div>
+          <div class="header-actions" id="homeActions"></div>
+        </div>
+      </header>
+      <div class="home-tiles" id="homeTiles"></div>
+      <div class="home-grid" id="homeGrid"></div>
+      <div class="home-addpanel" id="homeAddPanel" hidden>
+        <div class="home-addpanel-title" data-i18n="homeAddWidget">เพิ่มวิดเจ็ต</div>
+        <div class="home-addpanel-list" id="homeAddList"></div>
+      </div>
+    </section>
+
+    <!-- ===== Orders ===== -->
+    <section class="page" id="page-orders" data-page="orders" hidden>
+      <div class="page-title"><h2 data-i18n="navOrdersTitle">ของที่สั่งซื้อ</h2></div>
   <div class="layout">
     <div class="main-col">
       <div class="chip-row" id="statusChips">
@@ -188,8 +180,91 @@
       </section>
     </aside>
   </div>
+    </section>
 
+    <!-- ===== Settings ===== -->
+    <section class="page" id="page-settings" data-page="settings" hidden>
+      <div class="page-title"><h2 data-i18n="navSettings">ตั้งค่า</h2></div>
+      <div class="settings-lang">
+        <div class="menu-label" data-i18n="menuLang">ภาษา</div>
+        <div class="lang-toggle" role="group" aria-label="Language / ภาษา">
+          <button type="button" class="lang-btn" data-lang="th">TH</button>
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+        </div>
+      </div>
+      <div class="settings-panel" id="settingsMenu">
+            <div id="syncSection" class="acct-block">
+              <div class="acct-head" id="acctHead" hidden>
+                <span class="acct-avatar" id="acctAvatar">G</span>
+                <div class="acct-meta"><div class="acct-email" id="acctEmail"></div><div class="acct-sub" id="syncNote"></div></div>
+              </div>
+              <div class="menu-note acct-hint" id="syncHint"></div>
+              <button class="menu-item" id="btnSyncConnect" role="menuitem">
+                <svg class="ic-signin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l5-5-5-5M15 12H3"/></svg>
+                <svg class="ic-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 0 1-13.7 5.6M4 12a8 8 0 0 1 13.7-5.6"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>
+                <span id="syncConnectText"></span>
+              </button>
+              <button class="menu-item" id="btnSyncSwitch" role="menuitem" hidden>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.4 3.4-5.5 7-5.5s6.4 2.1 7 5.5"/></svg>
+                <span data-i18n="syncSwitch">เปลี่ยนบัญชี</span>
+              </button>
+              <button class="menu-item" id="btnSyncOff" role="menuitem" hidden>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                <span data-i18n="syncDisconnect">ออกจากระบบ</span>
+              </button>
+              <a class="acct-policy" href="privacy.html" target="_blank" rel="noopener" data-i18n="syncPolicyLink">นโยบายความเป็นส่วนตัว</a>
+            </div>
+            <div class="menu-sep"></div>
+            <div class="menu-appearance">
+              <div class="menu-label" data-i18n="menuMode">โหมด</div>
+              <div class="mode-seg" role="group">
+                <button type="button" class="mode-btn" data-mode="light" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                  <span data-i18n="themeLight">สว่าง</span>
+                </button>
+                <button type="button" class="mode-btn" data-mode="dark" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+                  <span data-i18n="themeDark">มืด</span>
+                </button>
+              </div>
+              <div class="menu-label" style="margin-top:10px" data-i18n="menuPrimary">สีหลัก</div>
+              <div class="color-row" id="colorRow"></div>
+            </div>
+            <div class="menu-sep"></div>
+            <button class="menu-item" id="btnCustomizeHeader" role="menuitem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg>
+              <span data-i18n="customizeHeaderTooltip">ตกแต่ง Header</span>
+            </button>
+            <div class="menu-sep"></div>
+            <button class="menu-item" id="btnExport" role="menuitem" data-i18n-title="exportBtnTooltip" title="บันทึกข้อมูลทั้งหมดเป็นไฟล์สำรอง">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+              <span data-i18n="exportBtn">ส่งออกข้อมูล</span>
+            </button>
+            <button class="menu-item" id="btnImport" role="menuitem" data-i18n-title="importBtnTooltip" title="นำเข้าไฟล์สำรองข้อมูล">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20V9M7 14l5-5 5 5M5 4h14"/></svg>
+              <span data-i18n="importBtn">นำเข้าข้อมูล</span>
+            </button>
+            <input type="file" id="importFile" accept="application/json" style="display:none">
+            <div class="menu-sep"></div>
+            <button class="menu-item" id="btnHelp" role="menuitem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 8v.01" stroke-linecap="round"/></svg>
+              <span data-i18n="helpBtnTooltip">วิธีใช้งาน</span>
+            </button>
+      </div>
+    </section>
+
+  </div>
 </div>
+
+<nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+
+<div class="quick-sheet-overlay" id="quickSheetOverlay">
+  <div class="quick-sheet" role="dialog" aria-modal="true">
+    <div class="quick-sheet-title" data-i18n="quickAddTitle">เพิ่มอะไรดี</div>
+    <div id="quickSheetList"></div>
+  </div>
+</div>
+
 
 <!-- Add/Edit Modal -->
 <div class="modal-overlay" id="orderModalOverlay">
@@ -231,6 +306,11 @@
         </div>
       </div>
       <div class="remain-live" id="remainLive"></div>
+
+      <div class="form-row">
+        <label data-i18n="labelDueDate">วันครบกำหนดจ่ายส่วนที่เหลือ (ถ้ามี)</label>
+        <input type="date" id="fDueDate">
+      </div>
 
       <div class="form-row">
         <label data-i18n="labelStatus">สถานะ</label>
@@ -432,23 +512,25 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="js/config.js?v=20261025b"></script>
-<script src="js/i18n-data.js?v=20261025b"></script>
-<script src="js/state.js?v=20261025b"></script>
-<script src="js/i18n.js?v=20261025b"></script>
-<script src="js/appearance.js?v=20261025b"></script>
-<script src="js/header.js?v=20261025b"></script>
-<script src="js/storage.js?v=20261025b"></script>
-<script src="js/utils.js?v=20261025b"></script>
-<script src="js/images.js?v=20261025b"></script>
-<script src="js/render.js?v=20261025b"></script>
-<script src="js/order-form.js?v=20261025b"></script>
-<script src="js/bulk.js?v=20261025b"></script>
-<script src="js/detail.js?v=20261025b"></script>
-<script src="js/data-io.js?v=20261025b"></script>
-<script src="js/optimize.js?v=20261025b"></script>
-<script src="js/sync.js?v=20261025b"></script>
-<script src="js/main.js?v=20261025b"></script>
-<script src="js/pwa.js?v=20261025b"></script>
+<script src="js/config.js?v=20261026a"></script>
+<script src="js/i18n-data.js?v=20261026a"></script>
+<script src="js/state.js?v=20261026a"></script>
+<script src="js/i18n.js?v=20261026a"></script>
+<script src="js/appearance.js?v=20261026a"></script>
+<script src="js/header.js?v=20261026a"></script>
+<script src="js/storage.js?v=20261026a"></script>
+<script src="js/utils.js?v=20261026a"></script>
+<script src="js/images.js?v=20261026a"></script>
+<script src="js/render.js?v=20261026a"></script>
+<script src="js/order-form.js?v=20261026a"></script>
+<script src="js/bulk.js?v=20261026a"></script>
+<script src="js/detail.js?v=20261026a"></script>
+<script src="js/data-io.js?v=20261026a"></script>
+<script src="js/optimize.js?v=20261026a"></script>
+<script src="js/sync.js?v=20261026a"></script>
+<script src="js/router.js?v=20261026a"></script>
+<script src="js/home.js?v=20261026a"></script>
+<script src="js/main.js?v=20261026a"></script>
+<script src="js/pwa.js?v=20261026a"></script>
 </body>
 </html>

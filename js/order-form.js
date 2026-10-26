@@ -41,6 +41,7 @@ function openOrderModal(orderId) {
       document.getElementById("fPurchaseDate").value = o.purchaseDate || "";
       document.getElementById("fFullPrice").value = o.fullPrice != null ? o.fullPrice : "";
       document.getElementById("fDeposit").value = o.depositPaid != null ? o.depositPaid : "";
+      document.getElementById("fDueDate").value = o.dueDate || "";
       document.getElementById("fStatus").value = o.status || "deposit";
       syncWishlistRequired();
       document.getElementById("fCourier").value = o.courier || "other";
@@ -143,6 +144,7 @@ function handleOrderSubmit(e) {
     purchaseDate: document.getElementById("fPurchaseDate").value || "",
     fullPrice: fullPrice,
     depositPaid: deposit,
+    dueDate: document.getElementById("fDueDate").value || "",
     status: document.getElementById("fStatus").value,
     courier: document.getElementById("fCourier").value,
     trackingNumber: document.getElementById("fTrackingNumber").value.trim(),

@@ -30,7 +30,7 @@ function saveLangPref() {
 
 function applyStaticTranslations() {
   document.documentElement.lang = state.lang;
-  document.title = t("appTitle");
+  document.title = t("siteName");
 
   Array.prototype.forEach.call(document.querySelectorAll("[data-i18n]"), function (el) {
     el.textContent = t(el.getAttribute("data-i18n"));
@@ -51,6 +51,8 @@ function applyStaticTranslations() {
   if (typeof refreshViewHints === "function") refreshViewHints();
   if (typeof refreshBulkBar === "function") refreshBulkBar();
   if (typeof renderSyncUI === "function") renderSyncUI();
+  if (typeof renderNav === "function") { renderNav(); renderNavAccount(); }
+  if (typeof renderHome === "function") renderHome();
 }
 
 function setLang(lang) {
