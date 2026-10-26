@@ -16,7 +16,7 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,500;0,600;0,700;1,800;1,900&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=20261026a">
+<link rel="stylesheet" href="css/app.css?v=20261026b">
 </head>
 <body>
 
@@ -186,13 +186,15 @@
     <section class="page" id="page-settings" data-page="settings" hidden>
       <div class="page-title"><h2 data-i18n="navSettings">ตั้งค่า</h2></div>
       <div class="settings-lang">
-        <div class="menu-label" data-i18n="menuLang">ภาษา</div>
+        <h3 class="set-title" data-i18n="menuLang">ภาษา</h3>
         <div class="lang-toggle" role="group" aria-label="Language / ภาษา">
           <button type="button" class="lang-btn" data-lang="th">TH</button>
           <button type="button" class="lang-btn active" data-lang="en">EN</button>
         </div>
       </div>
-      <div class="settings-panel" id="settingsMenu">
+      <div class="settings-page" id="settingsMenu">
+        <section class="set-sec">
+          <h3 class="set-title" data-i18n="setAccount">บัญชีและการซิงค์</h3>
             <div id="syncSection" class="acct-block">
               <div class="acct-head" id="acctHead" hidden>
                 <span class="acct-avatar" id="acctAvatar">G</span>
@@ -214,8 +216,11 @@
               </button>
               <a class="acct-policy" href="privacy.html" target="_blank" rel="noopener" data-i18n="syncPolicyLink">นโยบายความเป็นส่วนตัว</a>
             </div>
-            <div class="menu-sep"></div>
-            <div class="menu-appearance">
+            
+        </section>
+        <section class="set-sec">
+          <h3 class="set-title" data-i18n="setAppearance">หน้าตา</h3>
+          <div class="menu-appearance">
               <div class="menu-label" data-i18n="menuMode">โหมด</div>
               <div class="mode-seg" role="group">
                 <button type="button" class="mode-btn" data-mode="light" aria-pressed="false">
@@ -230,26 +235,36 @@
               <div class="menu-label" style="margin-top:10px" data-i18n="menuPrimary">สีหลัก</div>
               <div class="color-row" id="colorRow"></div>
             </div>
-            <div class="menu-sep"></div>
-            <button class="menu-item" id="btnCustomizeHeader" role="menuitem">
+
+          <button class="menu-item" id="btnCustomizeHeader" role="menuitem">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg>
               <span data-i18n="customizeHeaderTooltip">ตกแต่ง Header</span>
             </button>
-            <div class="menu-sep"></div>
-            <button class="menu-item" id="btnExport" role="menuitem" data-i18n-title="exportBtnTooltip" title="บันทึกข้อมูลทั้งหมดเป็นไฟล์สำรอง">
+
+        </section>
+        <section class="set-sec">
+          <h3 class="set-title" data-i18n="setData">ข้อมูล</h3>
+          <button class="menu-item" id="btnExport" role="menuitem" data-i18n-title="exportBtnTooltip" title="บันทึกข้อมูลทั้งหมดเป็นไฟล์สำรอง">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
               <span data-i18n="exportBtn">ส่งออกข้อมูล</span>
             </button>
-            <button class="menu-item" id="btnImport" role="menuitem" data-i18n-title="importBtnTooltip" title="นำเข้าไฟล์สำรองข้อมูล">
+
+          <button class="menu-item" id="btnImport" role="menuitem" data-i18n-title="importBtnTooltip" title="นำเข้าไฟล์สำรองข้อมูล">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20V9M7 14l5-5 5 5M5 4h14"/></svg>
               <span data-i18n="importBtn">นำเข้าข้อมูล</span>
             </button>
-            <input type="file" id="importFile" accept="application/json" style="display:none">
-            <div class="menu-sep"></div>
-            <button class="menu-item" id="btnHelp" role="menuitem">
+
+          <input type="file" id="importFile" accept="application/json" style="display:none">
+
+        </section>
+        <section class="set-sec">
+          <h3 class="set-title" data-i18n="setHelp">ช่วยเหลือ</h3>
+          <button class="menu-item" id="btnHelp" role="menuitem">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 8v.01" stroke-linecap="round"/></svg>
               <span data-i18n="helpBtnTooltip">วิธีใช้งาน</span>
             </button>
+
+        </section>
       </div>
     </section>
 
@@ -512,25 +527,25 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="js/config.js?v=20261026a"></script>
-<script src="js/i18n-data.js?v=20261026a"></script>
-<script src="js/state.js?v=20261026a"></script>
-<script src="js/i18n.js?v=20261026a"></script>
-<script src="js/appearance.js?v=20261026a"></script>
-<script src="js/header.js?v=20261026a"></script>
-<script src="js/storage.js?v=20261026a"></script>
-<script src="js/utils.js?v=20261026a"></script>
-<script src="js/images.js?v=20261026a"></script>
-<script src="js/render.js?v=20261026a"></script>
-<script src="js/order-form.js?v=20261026a"></script>
-<script src="js/bulk.js?v=20261026a"></script>
-<script src="js/detail.js?v=20261026a"></script>
-<script src="js/data-io.js?v=20261026a"></script>
-<script src="js/optimize.js?v=20261026a"></script>
-<script src="js/sync.js?v=20261026a"></script>
-<script src="js/router.js?v=20261026a"></script>
-<script src="js/home.js?v=20261026a"></script>
-<script src="js/main.js?v=20261026a"></script>
-<script src="js/pwa.js?v=20261026a"></script>
+<script src="js/config.js?v=20261026b"></script>
+<script src="js/i18n-data.js?v=20261026b"></script>
+<script src="js/state.js?v=20261026b"></script>
+<script src="js/i18n.js?v=20261026b"></script>
+<script src="js/appearance.js?v=20261026b"></script>
+<script src="js/header.js?v=20261026b"></script>
+<script src="js/storage.js?v=20261026b"></script>
+<script src="js/utils.js?v=20261026b"></script>
+<script src="js/images.js?v=20261026b"></script>
+<script src="js/render.js?v=20261026b"></script>
+<script src="js/order-form.js?v=20261026b"></script>
+<script src="js/bulk.js?v=20261026b"></script>
+<script src="js/detail.js?v=20261026b"></script>
+<script src="js/data-io.js?v=20261026b"></script>
+<script src="js/optimize.js?v=20261026b"></script>
+<script src="js/sync.js?v=20261026b"></script>
+<script src="js/router.js?v=20261026b"></script>
+<script src="js/home.js?v=20261026b"></script>
+<script src="js/main.js?v=20261026b"></script>
+<script src="js/pwa.js?v=20261026b"></script>
 </body>
 </html>

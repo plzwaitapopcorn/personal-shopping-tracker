@@ -849,9 +849,15 @@
   .quick-item:hover{ background: var(--surface-alt); }
 
   /* Settings page */
-  .settings-panel{ max-width:560px; margin-top:16px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:6px; }
-  .settings-lang{ display:none; margin-top:16px; }
-  .settings-lang .menu-label{ margin-left:0; }
+  .settings-page{ max-width:640px; margin-top:8px; }
+  .set-sec{ padding:18px 0 8px; border-top:1px solid var(--border); }
+  .set-sec:first-child{ border-top:none; }
+  .set-title{ font-family:var(--font-body); font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); margin:0 0 8px; }
+  .set-sec .menu-item{ padding:11px 4px; border-radius:10px; font-size:14.5px; }
+  .set-sec .menu-appearance, .set-sec .acct-block{ padding-left:0; padding-right:0; }
+  .set-sec .menu-note, .set-sec .acct-hint, .set-sec .acct-policy{ margin-left:4px; margin-right:4px; }
+  .set-sec .acct-head{ padding-left:4px; }
+  .settings-lang{ display:none; margin-top:16px; padding-bottom:6px; }
   .settings-lang .lang-toggle{ display:inline-flex; }
 
   /* Home */
