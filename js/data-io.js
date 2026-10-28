@@ -1,7 +1,7 @@
 "use strict";
 // ---------- Export / Import ----------
 function exportData() {
-  var blob = new Blob([JSON.stringify(state.orders, null, 2)], { type: "application/json" });
+  var blob = new Blob([JSON.stringify({ v: 2, orders: state.orders, finance: fin.items }, null, 2)], { type: "application/json" });
   var url = URL.createObjectURL(blob);
   var a = document.createElement("a");
   var stamp = new Date().toISOString().slice(0, 10);
@@ -19,7 +19,12 @@ function importData(file) {
   reader.onload = function (e) {
     try {
       var data = JSON.parse(e.target.result);
-      if (!Array.isArray(data)) throw new Error("Invalid file format");
+      var finItems = [];
+      if (!Array.isArray(data)) {             // newer backups: { orders: [...], finance: [...] }
+        if (!data || !Array.isArray(data.orders)) throw new Error("Invalid file format");
+        finItems = Array.isArray(data.finance) ? data.finance : [];
+        data = data.orders;
+      }
       var existingIds = {};
       state.orders.forEach(function (o) { existingIds[o.id] = true; });
       var added = 0;
@@ -29,8 +34,15 @@ function importData(file) {
           added++;
         }
       });
+      var finIds = {};
+      fin.items.forEach(function (x) { finIds[x.id] = true; });
+      finItems.forEach(function (x) {
+        if (finValid(x) && !finIds[x.id]) { fin.items.push(x); finIds[x.id] = true; added++; }
+      });
       saveData();
+      finSave();
       renderAll();
+      if (typeof finRenderAll === "function") finRenderAll();
       showToast(t("toastImported", { n: added }));
       setTimeout(autoOptimize, 500);
     } catch (err) {

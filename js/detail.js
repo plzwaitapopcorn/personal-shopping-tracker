@@ -72,6 +72,7 @@ function openDetailModal(id) {
     proofsHtml;
 
   document.getElementById("detailBody").innerHTML = body;
+  if (typeof finBindDetail === "function") finBindDetail(o);
   var trackLink = document.getElementById("btnTrackLink");
   if (trackLink && trackLink.getAttribute("data-copy")) {
     trackLink.addEventListener("click", function () {

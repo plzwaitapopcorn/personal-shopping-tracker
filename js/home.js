@@ -152,7 +152,7 @@ function renderHomeHeader() {
   var html = '<button type="button" class="btn-ghost-sm" id="btnHomeEdit">' + svgIcon("edit") + "<span>" +
     escapeHtml(t(homeEdit ? "homeEditDone" : "homeEdit")) + "</span></button>";
   QUICK_ADDS.forEach(function (q, i) {
-    html += '<button type="button" class="btn-primary home-qa" data-qa="' + i + '">' + svgIcon("plus") + "<span>" + escapeHtml(t(q.labelKey)) + "</span></button>";
+    html += '<button type="button" class="' + (q.primary ? "btn-primary" : "btn-ghost-sm") + ' home-qa" data-qa="' + i + '">' + svgIcon("plus") + "<span>" + escapeHtml(t(q.labelKey)) + "</span></button>";
   });
   act.innerHTML = html;
 }
@@ -160,7 +160,7 @@ function renderHomeHeader() {
 function renderHomeTiles() {
   var box = document.getElementById("homeTiles");
   box.innerHTML = NAV_ITEMS.filter(function (it) { return it.tileSub; }).map(function (it) {
-    return '<a class="tile" href="#/' + it.page + '">' + svgIcon(it.icon) + "<b>" + escapeHtml(t(it.tileKey || it.labelKey)) + "</b><small>" +
+    return '<a class="tile" href="#/' + it.page + '">' + svgIcon(it.tileIcon || it.icon) + "<b>" + escapeHtml(t(it.tileKey || it.labelKey)) + "</b><small>" +
       escapeHtml(it.tileSub()) + "</small></a>";
   }).join("");
 }
@@ -180,7 +180,7 @@ function renderHome() {
     card.className = "hw hw-" + w.size;
     card.setAttribute("data-wid", id);
     var head = '<h4>' + (w.icon ? svgIcon(w.icon) : "") + escapeHtml(t(w.titleKey)) +
-      (w.more && !homeEdit ? '<a class="hw-more" href="#/' + w.more.page + '" data-more="' + w.more.status + '">' + escapeHtml(t("seeAll")) + "</a>" : "") + "</h4>";
+      (w.more && !homeEdit ? '<a class="hw-more" href="#/' + w.more.page + '"' + (w.more.status !== undefined ? ' data-more="' + w.more.status + '"' : "") + ">" + escapeHtml(t("seeAll")) + "</a>" : "") + "</h4>";
     card.innerHTML = head + '<div class="hw-body"></div>';
     if (homeEdit) {
       var tools = document.createElement("div");

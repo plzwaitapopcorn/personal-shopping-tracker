@@ -264,12 +264,12 @@ function runSync(interactive, announce, opts) {
   setSyncState("syncing");
   setSettingsBusy(true);
   sync.bigMb = 0;
-  var count = 0, prevId = sync.fileId, prevEmail = sync.email, newEmail = "", revAtStart = sync.rev;
+  var replaceFlag = false, count = 0, prevId = sync.fileId, prevEmail = sync.email, newEmail = "", revAtStart = sync.rev;
   sync.promise = getToken(interactive, opts).then(function () {
     return (opts && opts.fresh) || !sync.email || interactive ? fetchEmail() : sync.email;
   }).then(function (email) {
     newEmail = email || sync.email || "";
-    if (opts && opts.fresh) sync.fileId = "";   // possibly a different account: look the file up again
+    if (opts && opts.fresh) { sync.fileId = ""; finSync.fileId = ""; finSaveFileId(); }   // possibly a different account: look the file up again
     return downloadRemote(interactive);
   }).then(function (remote) {
     var differentAccount = (prevEmail && newEmail) ? prevEmail !== newEmail : (!!prevId && sync.fileId !== prevId);
@@ -277,9 +277,12 @@ function runSync(interactive, announce, opts) {
     if (differentAccount && !(opts && opts.replace) && !confirm(t("confirmSyncDiff"))) {
       throw Object.assign(new Error("cancel"), { cancel: true });
     }
+    replaceFlag = replace;
     var r = replace ? applyReplace(remote) : mergeAndApply(remote);
     count = r.count;
     return r.needUpload ? uploadRemote(buildPayload()) : null;
+  }).then(function () {
+    return finSyncCore(replaceFlag);     // money records: separate small file
   }).then(function () {
     sync.last = Date.now(); if (newEmail) sync.email = newEmail; if (sync.rev === revAtStart) sync.syncedRev = sync.rev; saveSyncPref(); setSyncState("idle");
     if (announce) showToast(t("toastSyncOk", { n: count }));
@@ -303,6 +306,7 @@ function runSync(interactive, announce, opts) {
     sync.busy = false;
     setSettingsBusy(false);
     if (sync.again) { sync.again = false; scheduleSync(1500); }
+    if (finSync.rev !== finSync.syncedRev) scheduleFinSync(1500);
     setTimeout(autoOptimize, 800);
   });
   return sync.promise;
@@ -311,7 +315,9 @@ function runSync(interactive, announce, opts) {
 function doSignOut() {
   clearTimeout(sync.timer);
   state.orders = []; tsMap = {}; stripSig = {}; tombs = {}; saveTombs();
+  clearTimeout(finSync.timer); finClearAll(); finSync.fileId = ""; finSaveFileId(); finSync.rev = 0; finSync.syncedRev = 0;
   saveData(); renderAll();
+  if (typeof finRenderAll === "function") finRenderAll();
   sync.enabled = false; sync.token = ""; sync.exp = 0; sync.fileId = ""; sync.email = ""; sync.last = 0; sync.state = "off";
   sync.rev = 0; sync.syncedRev = 0;
   saveSyncPref(); renderSyncUI();
@@ -320,14 +326,14 @@ function doSignOut() {
 }
 function syncDisconnect() {
   if (!confirm(t("confirmSyncOff"))) return;
-  if (sync.rev !== sync.syncedRev && sync.state !== "needsauth") {   // flush unsynced edits before wiping this device
+  if (syncDirty() && sync.state !== "needsauth") {   // flush unsynced edits before wiping this device
     showToast(t("syncDoing"));
     runSync(false, false).then(function () {
-      if (sync.rev === sync.syncedRev || confirm(t("confirmSyncOffDirty"))) doSignOut();
+      if (!syncDirty() || confirm(t("confirmSyncOffDirty"))) doSignOut();
     });
     return;
   }
-  if (sync.rev !== sync.syncedRev && !confirm(t("confirmSyncOffDirty"))) return;
+  if (syncDirty() && !confirm(t("confirmSyncOffDirty"))) return;
   doSignOut();
 }
 function initSync() {
@@ -341,7 +347,7 @@ function initSync() {
   document.getElementById("btnSyncOff").addEventListener("click", syncDisconnect);
   document.getElementById("btnSyncSwitch").addEventListener("click", function () {
     if (!sync.enabled) return;
-    var dirty = sync.rev !== sync.syncedRev;
+    var dirty = syncDirty();
     if (!confirm(t(dirty ? "confirmSyncSwitchDirty" : "confirmSyncSwitch"))) return;
     runSync(true, true, { prompt: "select_account", fresh: true, replace: true });
   });

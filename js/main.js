@@ -9,9 +9,10 @@ function init() {
   initViewToggles();
   initBulkSelect();
   initSync();
+  initFinance();
   initHome();
   initRouter();
-  loadData().then(function () {
+  loadData().then(function () { return loadFinance().catch(function (e) { console.error("finance load", e); }); }).then(function () {
     syncInitMaps();
     state.loaded = true;
     renderAll();

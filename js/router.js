@@ -4,21 +4,26 @@
 // optionally a QUICK_ADDS entry, and register its widgets in home.js. Nothing else needs to change.
 
 var NAV_ITEMS = [
-  { page: "home",     icon: "home", labelKey: "navHome",   tabKey: "navHome",      group: "" },
-  { page: "orders",   icon: "bag",  labelKey: "navOrders", tabKey: "navOrdersTab", group: "navGroupOrders", tileKey: "navGroupOrders",
+  { page: "home",         icon: "home",   labelKey: "navHome",        tabKey: "navHome",      group: "" },
+  { page: "fin-overview", icon: "chart",  labelKey: "navFinOverview", tabKey: "navFinTab",    group: "navGroupFinance", tileKey: "navGroupFinance", tileIcon: "wallet",
+    tileSub: function () { return t("tileFinSub", { n: money(finTotals(finRowsOfMonth(monthKeyOf(new Date()))).expense) }); } },
+  { page: "fin-list",     icon: "list",   labelKey: "navFinList",     group: "navGroupFinance" },
+  { page: "fin-cats",     icon: "tag",    labelKey: "navFinCats",     group: "navGroupFinance" },
+  { page: "orders",       icon: "bag",    labelKey: "navOrders",      tabKey: "navOrdersTab", group: "navGroupOrders", tileKey: "navGroupOrders",
     count: function () { return state.orders.length; },
     tileSub: function () { return t("tileOrdersSub", { n: state.orders.length }); } }
 ];
 
+// Filled in by each feature module (finance-ui.js adds expense / income; the order add button lives here).
 var QUICK_ADDS = [
   { id: "order", icon: "bag", labelKey: "addOrderBtn", run: function () { openOrderModal(); } }
 ];
 
-var PAGE_IDS = ["home", "orders", "settings"];
+var PAGE_IDS = ["home", "fin-overview", "fin-list", "fin-cats", "orders", "settings"];
 var currentPageId = "";
 
 function pageFromHash() {
-  var m = /^#\/([a-z]+)/.exec(location.hash || "");
+  var m = /^#\/([a-z-]+)/.exec(location.hash || "");
   return (m && PAGE_IDS.indexOf(m[1]) !== -1) ? m[1] : "home";
 }
 
@@ -41,6 +46,7 @@ function showPage(page) {
     if (page !== "home" && typeof homeEditOff === "function") homeEditOff();
   }
   if (page === "home" && typeof renderHome === "function") renderHome();
+  if (page.indexOf("fin-") === 0 && typeof finRenderPage === "function") finRenderPage(page);
   if (page === "orders" && typeof renderAll === "function" && state.loaded) renderGrid();
 }
 
@@ -69,7 +75,7 @@ function renderNav() {
   if (st) st.classList.toggle("on", currentPageId === "settings");
 
   // Bottom tab bar (phones): one tab per nav item, the quick-add "+" in the middle.
-  var items = NAV_ITEMS.map(function (it) {
+  var items = NAV_ITEMS.filter(function (it) { return it.tabKey; }).map(function (it) {
     return '<a class="tab' + (currentPageId === it.page ? " on" : "") + '" href="#/' + it.page + '">' + svgIcon(it.icon) +
       "<span>" + escapeHtml(t(it.tabKey)) + "</span></a>";
   });

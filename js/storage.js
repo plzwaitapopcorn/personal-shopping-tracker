@@ -4,6 +4,7 @@
 // localStorage cap). If IndexedDB is unavailable, falls back to localStorage.
 var DB_NAME = "preorderVault";
 var ORDER_STORE = "orders";
+var FIN_STORE = "fin";          // finance records (transactions + categories), added in DB version 2
 var useLocalStorage = false;
 var dbHandle = null;
 // Short fingerprint of a (possibly huge) string, so change tracking does not keep full copies of every image in memory.
@@ -26,10 +27,13 @@ function openDb() {
   return new Promise(function (resolve, reject) {
     if (!window.indexedDB) { reject(new Error("IndexedDB not supported")); return; }
     var req;
-    try { req = indexedDB.open(DB_NAME, 1); } catch (e) { reject(e); return; }
+    try { req = indexedDB.open(DB_NAME, 2); } catch (e) { reject(e); return; }
     req.onupgradeneeded = function () {
       if (!req.result.objectStoreNames.contains(ORDER_STORE)) {
         req.result.createObjectStore(ORDER_STORE, { keyPath: "id" });
+      }
+      if (!req.result.objectStoreNames.contains(FIN_STORE)) {
+        req.result.createObjectStore(FIN_STORE, { keyPath: "id" });
       }
     };
     req.onsuccess = function () { resolve(req.result); };
@@ -38,18 +42,20 @@ function openDb() {
   });
 }
 
-function idbGetAll(db) {
+function idbGetAll(db, store) {
+  store = store || ORDER_STORE;
   return new Promise(function (resolve, reject) {
-    var req = db.transaction(ORDER_STORE, "readonly").objectStore(ORDER_STORE).getAll();
+    var req = db.transaction(store, "readonly").objectStore(store).getAll();
     req.onsuccess = function () { resolve(req.result || []); };
     req.onerror = function () { reject(req.error); };
   });
 }
 
-function idbWrite(db, putList, deleteIds) {
+function idbWrite(db, putList, deleteIds, storeName) {
+  storeName = storeName || ORDER_STORE;
   return new Promise(function (resolve, reject) {
-    var tx = db.transaction(ORDER_STORE, "readwrite");
-    var store = tx.objectStore(ORDER_STORE);
+    var tx = db.transaction(storeName, "readwrite");
+    var store = tx.objectStore(storeName);
     putList.forEach(function (o) { store.put(o); });
     deleteIds.forEach(function (id) { store.delete(id); });
     tx.oncomplete = function () { resolve(); };

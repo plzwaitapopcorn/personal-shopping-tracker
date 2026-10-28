@@ -156,8 +156,16 @@ function handleOrderSubmit(e) {
     createdAt: editingId ? (state.orders.find(function (o) { return o.id === editingId; }) || {}).createdAt || Date.now() : Date.now()
   };
 
+  var paidInfo = null, prevOrder = null;
   if (editingId) {
     var idx = state.orders.findIndex(function (o) { return o.id === editingId; });
+    prevOrder = idx !== -1 ? state.orders[idx] : null;
+    if (prevOrder) {
+      // keep fields the form does not edit (payment date, refund)
+      if (prevOrder.paidFullDate) order.paidFullDate = prevOrder.paidFullDate;
+      if (prevOrder.refund) order.refund = prevOrder.refund;
+      if (prevOrder.status !== order.status) paidInfo = financeOnStatusChange(order, prevOrder.status);
+    }
     if (idx !== -1) state.orders[idx] = order;
   } else {
     state.orders.push(order);
@@ -166,6 +174,8 @@ function handleOrderSubmit(e) {
   if (saveData()) {
     closeOrderModal();
     renderAll();
-    showToast(editingId ? t("toastUpdated") : t("toastAdded"));
+    if (typeof finRenderAll === "function") finRenderAll();
+    if (paidInfo && prevOrder) offerBalanceUndo(order, paidInfo, prevOrder.status, prevOrder.paidFullDate);
+    else showToast(editingId ? t("toastUpdated") : t("toastAdded"));
   }
 }

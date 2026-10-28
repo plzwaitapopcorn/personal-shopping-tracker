@@ -16,7 +16,7 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,500;0,600;0,700;1,800;1,900&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/app.css?v=20261026b">
+<link rel="stylesheet" href="css/app.css?v=20261028a">
 </head>
 <body>
 
@@ -31,6 +31,12 @@
  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7"/><circle cx="7" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/></symbol>
  <symbol id="i-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></symbol>
+ <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+ <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8L3 12Z"/><circle cx="7.5" cy="8.5" r="1.2"/></symbol>
+ <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+ <symbol id="i-arrow-in" viewBox="0 0 24 24"><path d="M12 4v13M6 12l6 6 6-6"/></symbol>
+ <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+ <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H18v3"/><rect x="4" y="8" width="16" height="11" rx="2.5"/><circle cx="16" cy="13.5" r="1.1"/></symbol>
 </defs></svg>
 
@@ -182,6 +188,20 @@
   </div>
     </section>
 
+    <!-- ===== Finance ===== -->
+    <section class="page" id="page-fin-overview" data-page="fin-overview" hidden>
+      <div class="page-title"><h2 data-i18n="navFinOverview">ภาพรวมรายเดือน</h2></div>
+      <div id="finOverviewBody"></div>
+    </section>
+    <section class="page" id="page-fin-list" data-page="fin-list" hidden>
+      <div class="page-title"><h2 data-i18n="navFinList">รายการรับ-จ่าย</h2></div>
+      <div id="finListBody"></div>
+    </section>
+    <section class="page" id="page-fin-cats" data-page="fin-cats" hidden>
+      <div class="page-title"><h2 data-i18n="navFinCats">หมวดและงบ</h2></div>
+      <div id="finCatsBody"></div>
+    </section>
+
     <!-- ===== Settings ===== -->
     <section class="page" id="page-settings" data-page="settings" hidden>
       <div class="page-title"><h2 data-i18n="navSettings">ตั้งค่า</h2></div>
@@ -272,6 +292,114 @@
 </div>
 
 <nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+
+<!-- Finance: add / edit a record -->
+<div class="modal-overlay" id="txModalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="txModalTitle">รายจ่าย</h2>
+      <button class="icon-btn" id="closeTxModal" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <form id="txForm">
+      <div class="fseg" role="group" id="txTypeSeg">
+        <button type="button" class="fseg-btn" data-txtype="expense" data-i18n="finExpense">รายจ่าย</button>
+        <button type="button" class="fseg-btn" data-txtype="income" data-i18n="finIncome">รายรับ</button>
+      </div>
+      <div class="form-row-2">
+        <div class="form-row">
+          <label data-i18n="finAmount">จำนวนเงิน (บาท)</label>
+          <input type="number" id="fTxAmount" min="0" step="0.01" inputmode="decimal" placeholder="0" required>
+        </div>
+        <div class="form-row">
+          <label data-i18n="finDate">วันที่</label>
+          <input type="date" id="fTxDate" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <label data-i18n="finCategory">หมวด</label>
+        <div class="cat-chips" id="txCatChips"></div>
+      </div>
+      <div class="form-row">
+        <label data-i18n="finNote">โน้ต (ไม่บังคับ)</label>
+        <input type="text" id="fTxNote" data-i18n-placeholder="finNotePh" placeholder="เช่น ข้าวมันไก่">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-danger-text" id="btnTxDelete" data-i18n="finDelete" style="display:none;">ลบรายการนี้</button>
+        <div class="footer-right">
+          <button type="button" class="btn-secondary" id="cancelTxForm" data-i18n="cancelBtn">ยกเลิก</button>
+          <button type="submit" class="btn-primary" style="margin-left:0;" data-i18n="saveBtn">บันทึก</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Finance: category -->
+<div class="modal-overlay" id="catModalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="catModalTitle">หมวด</h2>
+      <button class="icon-btn" id="closeCatModal" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <form id="catForm">
+      <div class="form-row">
+        <label data-i18n="finCatName">ชื่อหมวด</label>
+        <input type="text" id="fCatName" maxlength="40">
+      </div>
+      <div class="form-row" id="catTypeRow">
+        <label data-i18n="finCatType">ประเภท</label>
+        <div class="fseg" role="group" id="catTypeSeg">
+          <button type="button" class="fseg-btn" data-cattype="expense" data-i18n="finExpense">รายจ่าย</button>
+          <button type="button" class="fseg-btn" data-cattype="income" data-i18n="finIncome">รายรับ</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <label data-i18n="finCatColor">สี</label>
+        <div class="color-row cat-colors" id="catColors"></div>
+      </div>
+      <div class="form-row" id="catBudgetRow">
+        <label data-i18n="finCatBudget">งบต่อเดือน (บาท) — ถ้ามี</label>
+        <input type="number" id="fCatBudget" min="0" step="1" inputmode="decimal" data-i18n-placeholder="finCatBudgetPh" placeholder="เว้นว่างถ้าไม่ตั้งงบ">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-danger-text" id="btnCatDelete" data-i18n="finCatDelete" style="display:none;">ลบหมวดนี้</button>
+        <div class="footer-right">
+          <button type="button" class="btn-secondary" id="cancelCatForm" data-i18n="cancelBtn">ยกเลิก</button>
+          <button type="submit" class="btn-primary" style="margin-left:0;" data-i18n="saveBtn">บันทึก</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Small dialog: amount / date -->
+<div class="modal-overlay" id="payDlgOverlay">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2 id="payDlgTitle"></h2>
+      <button class="icon-btn" id="closePayDlg" type="button" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <form id="payDlgForm">
+      <div class="form-row" id="payDlgAmountRow">
+        <label data-i18n="finAmount">จำนวนเงิน (บาท)</label>
+        <input type="number" id="payDlgAmount" min="0" step="0.01" inputmode="decimal">
+      </div>
+      <div class="form-row">
+        <label data-i18n="finDate">วันที่</label>
+        <input type="date" id="payDlgDate" required>
+      </div>
+      <div class="modal-footer">
+        <span></span>
+        <div class="footer-right">
+          <button type="button" class="btn-secondary" id="cancelPayDlg" data-i18n="cancelBtn">ยกเลิก</button>
+          <button type="submit" class="btn-primary" style="margin-left:0;" data-i18n="saveBtn">บันทึก</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast-act" id="toastAct" role="status" aria-live="polite"><span class="toast-act-msg" id="toastActMsg"></span><span class="toast-act-btns" id="toastActBtns"></span></div>
 
 <div class="quick-sheet-overlay" id="quickSheetOverlay">
   <div class="quick-sheet" role="dialog" aria-modal="true">
@@ -441,7 +569,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
-<div class="help-tabs" role="tablist"><button type="button" class="help-tab active" data-help-tab="start" role="tab"><span data-i18n="hTabStart">เริ่มต้น</span></button><button type="button" class="help-tab" data-help-tab="orders" role="tab"><span data-i18n="hTabOrders">ออเดอร์</span></button><button type="button" class="help-tab" data-help-tab="find" role="tab"><span data-i18n="hTabFind">ค้นหา & ภาพรวม</span></button><button type="button" class="help-tab" data-help-tab="track" role="tab"><span data-i18n="hTabTrack">พัสดุ</span></button><button type="button" class="help-tab" data-help-tab="settings" role="tab"><span data-i18n="hTabSettings">ตั้งค่า & ซิงค์</span></button></div>
+<div class="help-tabs" role="tablist"><button type="button" class="help-tab active" data-help-tab="start" role="tab"><span data-i18n="hTabStart">เริ่มต้น</span></button><button type="button" class="help-tab" data-help-tab="orders" role="tab"><span data-i18n="hTabOrders">ออเดอร์</span></button><button type="button" class="help-tab" data-help-tab="find" role="tab"><span data-i18n="hTabFind">ค้นหา & ภาพรวม</span></button><button type="button" class="help-tab" data-help-tab="track" role="tab"><span data-i18n="hTabTrack">พัสดุ</span></button><button type="button" class="help-tab" data-help-tab="money" role="tab"><span data-i18n="hTabMoney">การเงิน</span></button><button type="button" class="help-tab" data-help-tab="settings" role="tab"><span data-i18n="hTabSettings">ตั้งค่า & ซิงค์</span></button></div>
 <div class="help-panel active" data-help-panel="start">
 <p class="hintro" data-i18n="hStartIntro">เว็บนี้ใช้จดของที่สั่งซื้อไว้ ตั้งแต่จ่ายมัดจำจนของถึงมือ เริ่มใช้ได้ใน 3 ขั้นตอน</p>
 <div class="hstep"><div class="hnum">1</div><div class="hbody"><h4 data-i18n="hS1T">กด “+ เพิ่มออเดอร์”</h4><p data-i18n="hS1D">ปุ่มอยู่มุมขวาบนของหน้า (บนมือถือเป็นปุ่มลอยมุมขวาล่าง)</p><div class="hviz"><span class="mk-btn">+ <span data-i18n="hS1B">เพิ่มออเดอร์</span></span></div></div></div>
@@ -454,16 +582,26 @@
 <div class="hstep"><div class="hnum">2</div><div class="hbody"><h4 data-i18n="hO2T">ใส่รูปสินค้า</h4><p data-i18n="hO2D">กดที่กรอบรูป ลากรูปมาวาง หรือคัดลอกรูปแล้วกด Ctrl+V ก็ได้ วางรูปใหม่ทับรูปเดิมได้เลย หรือกด “เปลี่ยนรูป” / “ลบรูป” ที่มุมรูป ถ้ามีรูปบนเว็บให้กด “ใส่ลิงก์รูป” ใต้กรอบ</p><div class="hviz"><div class="mk-drop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></svg><div class="chips"><span class="mk-chip"><span data-i18n="hO2a">คลิกเลือกไฟล์</span></span><span class="mk-chip"><span data-i18n="hO2b">ลากมาวาง</span></span><span class="mk-chip">Ctrl+V / ⌘V</span></div></div></div></div></div>
 <div class="hstep"><div class="hnum">3</div><div class="hbody"><h4 data-i18n="hO3T">รูปหลักฐาน (สลิป แคปหน้าจอ)</h4><p data-i18n="hO3D">ใส่ได้หลายรูปต่อออเดอร์ ใช้ได้ทั้ง 3 วิธีเหมือนรูปสินค้า วางต่อกันได้เรื่อยๆ กด ✕ บนรูปย่อเพื่อลบทีละรูป</p></div></div>
 <div class="hstep"><div class="hnum">4</div><div class="hbody"><h4 data-i18n="hO4T">ดู แก้ไข และลบ</h4><p data-i18n="hO4D">กดที่แถวหรือการ์ดเพื่อดูรายละเอียดเต็มและรูปหลักฐาน แล้วกด “แก้ไข” หรือ “ลบออเดอร์นี้” ได้จากตรงนั้น</p></div></div>
+<div class="hstep"><div class="hnum">5</div><div class="hbody"><h4 data-i18n="hO5T"></h4><p data-i18n="hO5D"></p></div></div>
 </div>
 <div class="help-panel" data-help-panel="find">
 <div class="hstep"><div class="hnum">1</div><div class="hbody"><h4 data-i18n="hF1T">ไอคอนบนแถบด้านบน</h4><p data-i18n="hF1D">ค้นหาจากชื่อสินค้า ร้านค้า หรือโน้ต เรียงตามใหม่สุด/เก่าสุด/สถานะ กรองตามปี และสลับมุมมองได้ ไอคอนจัดกลุ่มใช้เปิด/ปิดหัวข้อกลุ่ม (กดหัวกลุ่มเพื่อพับ/ขยาย) ไอคอนติ๊กถูกใช้เลือกหลายรายการเพื่อลบพร้อมกัน (แตะรายการที่ต้องการหรือกด “เลือกทั้งหมด” แล้วกดลบ) ค่าเริ่มต้นคือมุมมองรายการ</p><div class="hviz"><div class="mk-tools"><div class="mk-tool"><div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div><span data-i18n="hT1">ค้นหา</span></div><div class="mk-tool"><div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h16"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg></div><span data-i18n="hT2">จัดกลุ่มตามสถานะ</span></div><div class="mk-tool"><div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1" fill="currentColor"/><circle cx="3.5" cy="12" r="1" fill="currentColor"/><circle cx="3.5" cy="18" r="1" fill="currentColor"/></svg></div><span data-i18n="hT3">รายการ / การ์ด</span></div><div class="mk-tool"><div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h11M3 12h7M3 17h4"/><path d="m17 4 4 4-4 4M21 8H10"/></svg></div><span data-i18n="hT4">เรียงลำดับ</span></div><div class="mk-tool"><div class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div><span data-i18n="hT5">กรองตามปี</span></div></div></div></div></div>
 <div class="hstep"><div class="hnum">2</div><div class="hbody"><h4 data-i18n="hF2T">กรองตามสถานะ</h4><p data-i18n="hF2D">แผงด้านขวา (บนมือถือคือแถบชิปใต้สรุป) กดสถานะไหนก็เห็นเฉพาะสถานะนั้น กดซ้ำหรือกด “ทั้งหมด” เพื่อกลับมาดูทุกรายการ</p><div class="hviz"><div class="mk-flow"><span class="mk-pill" style="border-color:var(--status-deposit)"><i style="background:var(--status-deposit)"></i><span data-i18n="statusDeposit">มัดจำแล้ว</span></span><span class="mk-pill" style="border-color:var(--status-full)"><i style="background:var(--status-full)"></i><span data-i18n="statusFull">จ่ายเต็มแล้ว</span></span><span class="mk-pill" style="border-color:var(--status-received)"><i style="background:var(--status-received)"></i><span data-i18n="statusReceived">ได้รับแล้ว</span></span></div></div></div></div>
 <div class="hstep"><div class="hnum">3</div><div class="hbody"><h4 data-i18n="hF3T">อ่านแผงสรุป</h4><p data-i18n="hF3D">“ได้รับแล้ว” คือจำนวนที่ถึงมือแล้วจากทั้งหมด “ค้างชำระ” คือยอดที่ยังต้องจ่าย “ยอดรวม” คือยอดที่จ่ายไปแล้ว ไม่นับออเดอร์ที่ยกเลิกและรายการอยากได้</p></div></div>
+<div class="hstep"><div class="hnum">4</div><div class="hbody"><h4 data-i18n="hF4T"></h4><p data-i18n="hF4D"></p></div></div>
 </div>
 <div class="help-panel" data-help-panel="track">
 <div class="hstep"><div class="hnum">1</div><div class="hbody"><h4 data-i18n="hK1T">ใส่เลขพัสดุ</h4><p data-i18n="hK1D">เปิดรายละเอียดออเดอร์ เลือกขนส่ง ใส่เลขพัสดุ แล้วกดบันทึก (แก้ทีหลังได้จากปุ่ม “แก้ไข”)</p></div></div>
 <div class="hstep"><div class="hnum">2</div><div class="hbody"><h4 data-i18n="hK2T">กด “ติดตามพัสดุ”</h4><p data-i18n="hK2D">ปุ่มจะเปิดเว็บของขนส่งนั้น และใต้ปุ่มจะบอกชื่อเว็บให้เห็นก่อนกด</p><div class="hviz"><div class="mk-track"><div class="n">TH47A9B3C2D1E <span>(Flash Express)</span></div><span class="mk-btn sm"><span data-i18n="hK2a">ติดตามพัสดุ</span></span><div class="dest"><span data-i18n="hK2b">กดแล้วจะเปิดเว็บ:</span> <b>www.flashexpress.co.th</b></div></div></div></div></div>
 <div class="hstep"><div class="hnum">3</div><div class="hbody"><h4 data-i18n="hK3T">ถ้าเว็บขนส่งใส่เลขให้ไม่ได้</h4><p data-i18n="hK3D">Kerry, Flash, J&T และ Ninja Van: ระบบคัดลอกเลขพัสดุให้อัตโนมัติ แค่กด Ctrl+V ในช่องค้นหา ส่วนขนส่งที่ไม่มีในรายการ (“อื่นๆ”) จะเปิด 17TRACK ซึ่งเป็นเว็บกลางรวมหลายขนส่ง อาจมีหน้ายืนยันคุกกี้หรือขอให้ล็อกอิน ปิดหรือข้ามได้</p></div></div>
+</div>
+<div class="help-panel" data-help-panel="money">
+<div class="hstep"><div class="hnum">1</div><div class="hbody"><h4 data-i18n="hM1T"></h4><p data-i18n="hM1D"></p></div></div>
+<div class="hstep"><div class="hnum">2</div><div class="hbody"><h4 data-i18n="hM2T"></h4><p data-i18n="hM2D"></p></div></div>
+<div class="hstep"><div class="hnum">3</div><div class="hbody"><h4 data-i18n="hM3T"></h4><p data-i18n="hM3D"></p></div></div>
+<div class="hstep"><div class="hnum">4</div><div class="hbody"><h4 data-i18n="hM4T"></h4><p data-i18n="hM4D"></p></div></div>
+<div class="hstep"><div class="hnum">5</div><div class="hbody"><h4 data-i18n="hM5T"></h4><p data-i18n="hM5D"></p></div></div>
+<div class="hstep"><div class="hnum">6</div><div class="hbody"><h4 data-i18n="hM6T"></h4><p data-i18n="hM6D"></p></div></div>
 </div>
 <div class="help-panel" data-help-panel="settings">
 <div class="hstep"><div class="hnum">1</div><div class="hbody"><h4 data-i18n="hSy1T">ล็อกอินด้วย Google เพื่อใช้หลายเครื่อง (ไม่บังคับ)</h4><p data-i18n="hSy1D">จะใช้แบบไม่ล็อกอินก็ได้ ข้อมูลเก็บในเครื่องนี้ แต่ถ้าอยากเห็นข้อมูลชุดเดียวกันทั้งมือถือและคอม ให้กด “ล็อกอินด้วย Google” ในเมนูเฟือง ข้อมูลจะถูกเก็บเป็นไฟล์ในโฟลเดอร์ลับของแอปใน Google Drive ของคุณเอง แอปเข้าถึงไฟล์อื่นของคุณไม่ได้ เมนูจะแสดงอีเมลของบัญชีที่ล็อกอินอยู่</p><p><a class="plink" href="privacy.html" target="_blank" rel="noopener" data-i18n="syncPolicyLinkLong">อ่านนโยบายความเป็นส่วนตัว</a></p><div class="hviz"><span class="mk-btn"><span data-i18n="syncConnect">เชื่อมต่อ Google Drive</span></span></div></div></div>
@@ -527,25 +665,28 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="js/config.js?v=20261026b"></script>
-<script src="js/i18n-data.js?v=20261026b"></script>
-<script src="js/state.js?v=20261026b"></script>
-<script src="js/i18n.js?v=20261026b"></script>
-<script src="js/appearance.js?v=20261026b"></script>
-<script src="js/header.js?v=20261026b"></script>
-<script src="js/storage.js?v=20261026b"></script>
-<script src="js/utils.js?v=20261026b"></script>
-<script src="js/images.js?v=20261026b"></script>
-<script src="js/render.js?v=20261026b"></script>
-<script src="js/order-form.js?v=20261026b"></script>
-<script src="js/bulk.js?v=20261026b"></script>
-<script src="js/detail.js?v=20261026b"></script>
-<script src="js/data-io.js?v=20261026b"></script>
-<script src="js/optimize.js?v=20261026b"></script>
-<script src="js/sync.js?v=20261026b"></script>
-<script src="js/router.js?v=20261026b"></script>
-<script src="js/home.js?v=20261026b"></script>
-<script src="js/main.js?v=20261026b"></script>
-<script src="js/pwa.js?v=20261026b"></script>
+<script src="js/config.js?v=20261028a"></script>
+<script src="js/i18n-data.js?v=20261028a"></script>
+<script src="js/state.js?v=20261028a"></script>
+<script src="js/i18n.js?v=20261028a"></script>
+<script src="js/appearance.js?v=20261028a"></script>
+<script src="js/header.js?v=20261028a"></script>
+<script src="js/storage.js?v=20261028a"></script>
+<script src="js/utils.js?v=20261028a"></script>
+<script src="js/images.js?v=20261028a"></script>
+<script src="js/render.js?v=20261028a"></script>
+<script src="js/order-form.js?v=20261028a"></script>
+<script src="js/bulk.js?v=20261028a"></script>
+<script src="js/detail.js?v=20261028a"></script>
+<script src="js/data-io.js?v=20261028a"></script>
+<script src="js/optimize.js?v=20261028a"></script>
+<script src="js/sync.js?v=20261028a"></script>
+<script src="js/router.js?v=20261028a"></script>
+<script src="js/home.js?v=20261028a"></script>
+<script src="js/finance-data.js?v=20261028a"></script>
+<script src="js/finance-sync.js?v=20261028a"></script>
+<script src="js/finance-ui.js?v=20261028a"></script>
+<script src="js/main.js?v=20261028a"></script>
+<script src="js/pwa.js?v=20261028a"></script>
 </body>
 </html>

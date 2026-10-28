@@ -302,11 +302,15 @@ function statusSelectHtml(o) {
 function updateOrderStatus(id, newStatus) {
   var order = state.orders.find(function (o) { return o.id === id; });
   if (!order || order.status === newStatus) return;
+  var oldStatus = order.status, oldPaid = order.paidFullDate;
   order.status = newStatus;
+  var paid = financeOnStatusChange(order, oldStatus);
   if (saveData()) {
     renderStats();
     renderGrid();
-    showToast(t("toastStatusUpdated", { status: statusLabel(newStatus) }));
+    if (typeof finRenderAll === "function") finRenderAll();
+    if (paid) offerBalanceUndo(order, paid, oldStatus, oldPaid);
+    else showToast(t("toastStatusUpdated", { status: statusLabel(newStatus) }));
   }
 }
 
